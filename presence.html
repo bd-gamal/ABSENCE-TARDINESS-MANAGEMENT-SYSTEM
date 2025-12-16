@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prise de Présence</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-white font-sans">
+
+    <div class="flex min-h-screen">
+        <aside class="w-64 bg-sidebar txt-white flax flex-col items-center py-8 px-4 shadow-lg fixed h-full z-10">
+            <h1 class="text-center font-bold text-xl mb-10 leading-tight text-black">
+                Systéme de<br>
+                Gestion des<br>
+                Absences &<br>
+                Retards
+            </h1>
+
+            <nav class="w-full space-y-4">
+                <button
+                    class="w-full py-3 rounded-full bg-btn-inactive text-white font-semibold hover:bg-blue-600 transition">
+                    Menu
+                </button>
+
+                <button
+                    class="w-full py-3 rounded-full bg-btn-inactive text-white font-semibold hover:bg-blue-600 transition">
+                    Apprenants
+                </button>
+
+                <button class="w-full py-3 rounded-full bg-btn-active text-white font-bold shadow-md">
+                    Marquer Présence
+                </button>
+
+                <button
+                    class="w-full py-3 rounded-full bg-btn-inactive text-white font-semibold hover:bg-blue-600 transition">
+                    Historique
+                </button>
+
+                <button
+                    class="w-full py-3 rounded-full bg-btn-inactive text-white font-semibold hover:bg-blue-600 transition">
+                    Statistique
+                </button>
+            </nav>
+        </aside>
+
+        <main class="flex-1 ml-64 flex flex-col">
+
+            <header class="bg-header h-16 flex items-center px-8 shadow-sm">
+                <h2 class="text-white text-xl font-bold">Prise de Présence</h2>
+            </header>
+
+            <div class="p-8">
+
+                <div class="flex justify-end mb-6">
+                    <div
+                        class="border border-black rounded-full px-6 py-2 bg-gray-100 flex items-center gap-4 shadow-sm w-64 justify-between">
+                        <span class="font-bold text-black">Date</span>
+                        <span class="text-black font-medium">-/--/----</span>
+                    </div>
+                </div>
+
+                <div
+                    class="border-2 border-blue-500 bg-gray-200 rounded-lg p-6 mb-6 flex justify-center items-center shadow-sm">
+                    <h3 class="text-black font-bold text-xl">La Liste</h3>
+                </div>
+
+                <div class="overflow-hidden rounded-xl border border-gray-400">
+                    <table class="w-full border-collapse">
+                        <thead>
+                            <tr class="bg-gray-300 text-black">
+                                <th rowspan="2" class="border border-gray-400 py-4 text-center font-bold w-1/4">
+                                    Nom &<br>Prénom
+                                </th>
+
+                                <th rowspan="2" class="border border-gray-400 py-4 px-4 text-center font-bold w-1/4">
+                                    <span class="text-green-600 text-xl">✅</span> Présent
+                                </th>
+
+                                <th rowspan="2" class="border border-gray-400 py-4 px-4 text-center font-bold w-1/4">
+                                    <span class="text-red-600 text-xl">❌</span> Absent
+                                </th>
+
+                                <th colspan="2" class="border border-gray-400 py-2 px-4 text-center font-bold">
+                                    En Retard
+                                </th>
+                            </tr>
+
+                            <tr class="bg-gray-300 text-black text-sm">
+                                <th class="border border-gray-400 py-2 px-2 text-center w-24">Heure<br>d'arrivée</th>
+                                <th class="border border-gray-400 py-2 px-2 text-center">Motif</th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="bg-gray-200 text-black font-bold text-center">
+
+                            <tr>
+                                <td class="border border-gray-400 py-6 px-4 uppercase">YOUSSEF</td>
+                                <td class="border border-gray-400"></td>
+                                <td class="border border-gray-400"></td>
+                                <td class="border border-gray-400"></td>
+                                <td class="border border-gray-400"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
