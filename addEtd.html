@@ -1,0 +1,49 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>add student</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="w-screen h-screen m-0 flex justify-center items-center ">
+    <div class = "w-[45%] h-[65%] flex-col p-0 m-0 space-y-12 " >
+
+            <form id="studentform"  class="bg-transparent flex flex-col w-full h-full border-4 rounded-3xl justify-around items-center">
+                
+                <div class="flex-col w-[90%] h-[15%]" >
+                    <label for="nom" class="w-full  block font-bold">Nom: </label >
+                        <input type="text" id="nom" name="nom" placeholder="Entrer un nom :" required
+                        class="w-full border-2 border-black h-[53%] rounded">                    
+                </div>
+                
+                <div class="flex-col w-[90%] h-[15%]">
+                    <label for="prenom" class="w-full  block font-bold">Prenom: </label>
+                        <input type="text" id="prenom" name="prenom" placeholder="Entrer un prenom :" required
+                        class="w-full border-2 border-black h-[53%] rounded">                    
+                </div>
+            
+                <div class="flex-col w-[90%] h-[15%]">
+                    <label for="email" class="w-full  block font-bold">email: </label>
+                        <input type="email" id="email" name="email" placeholder="Entrer un email :"
+                        class="w-full border-2 border-black h-[53%] rounded">
+                </div>
+            
+                <div class="flex-col w-[90%] h-[15%]">
+                    <label for="groupe" class="w-full block font-bold">Class :</label>
+                   <input type="text" id="groupe" name="groupe"  placeholder="Entrer un class :"  required
+                        class="w-full border-2 border-black h-[53%] rounded">                    
+                </div>
+            
+                <div class="flex justify-evenly  items-center  w-[90%] h-[15%]">
+                    <input type="reset" class="w-[20%] h-[50%] bg-blue-600 text-white rounded">
+                    <input type="submit" class="w-[20%] h-[50%] bg-blue-600 text-white rounded ">
+                </div>
+
+                           
+            </form>
+    </div>
+
+    <script src="addEtd.js"></script>
+</body>
+</html>
