@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Apprenants</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="flex h-screen ">
+        <aside class="w-64 bg-blue-600 text-white flex flex-col hidden md:flex">
+          
+            <div class="p-6 text-center ">
+            <h1 class="text-xl font-extrabold tracking-wide">MENA</h1>
+        </div>
+            <nav class="flex-1 p-4 space-y-2">
+        <button class="w-full text-left py-3 px-4 rounded-lg hover:bg-blue-400 transition duration-300 flex items-conter">
+            <i class="fa-solid fa-users mr-3"></i>
+            Home
+        </button>
+
+        <button class="w-full text-left py-3 px-4 rounded-lg hover:bg-blue-400 transition duration-300 flex items-conter">
+            <i class="fa-solid fa-users mr-3"></i>
+            Apprenants
+        </button>
+
+        <button class="w-full text-left py-3 px-4 rounded-lg hover:bg-blue-400 transition duration-300 flex items-conter">
+            <i class="fa-solid fa-users mr-3"></i>
+            Marquer Présence
+        </button>
+
+        <button class="w-full text-left py-3 px-4 rounded-lg hover:bg-blue-400 transition duration-300 flex items-conter">
+            <i class="fa-solid fa-users mr-3"></i>
+            Historique
+        </button>
+        <button class="w-full text-left py-3 px-4 rounded-lg hover:bg-blue-400 transition duration-300 flex items-conter">
+            <i class="fa-solid fa-users mr-3"></i>
+            Statistiques
+        </button>
+    </nav>
+        </aside>
+        <div class="flex flex-col w-full">
+        <main class="flex  p-4 bg-blue-600 h-[80px] w-full justify-between items-center overflow-auto ">
+        <h1 class="  text-white text-left fond-bold text-[20px] h-fit">Gestion Apprenants</h1>
+         <button class="text-white bg-blue-400 w-40 text-center py-3 px-4 rounded-lg hover:bg-blue-800 transition duration-300">
+            Dark Mode
+        </button>
+        </main>
+        <div class="p-6 ">
+            <div class="flex justify-between itmes-conter mb-6">
+                <h2 class="text-xl fond-bold text-gray-700 dark-white">La liste des apprenants</h2>
+                <button onclick="document.getElementById('modal').classList.remove('hidden')"
+                class="'bg-gray-600 hover:bg-blue-700 text-black hover:text-white font-bold py-2 px-4 rounded-lg shadow transition flex items-center">
+            <i class="fa-solid fa-plus mr-2"></i> Ajouter
+        </button>
+            </div>
+            <div class="overflow-x-auto bg-white dark:bg-gray-800 rounded-lg shadow">
+               <table class="min-w-full text-left text-sm whitespace-nowrap">
+                <thead class="uppercase tracking-wider border-b-2 border-gray-200 dark:border-gray-700 bg-blue-40 dark:bg-gray-600 text-blue-600 dark:text-blue-300">
+                    <tr>
+                        <th class="px-6 py-4">ID</th>
+                        <th class="px-6 py-4">Nom</th>
+                        <th class="px-6 py-4">Prénom</th>
+                        <th class="px-6 py-4">Groupe</th>
+                        <th class="px-6 py-4">Opérations</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody" class="text-gray-600 dark:text-gray-300">
+                <tr class="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 transition">
+                    <td class="px-6 py-4" >01</td>
+                    <td class="px-6 py-4" >Youssef</td>
+                    <td class="px-6 py-4" >Ait Abbou</td>
+                    <td class="px-6 py-4 text-center" >
+                        <span class="text-blue-800 py-1 px-3 text-xs dark:text-blue-300">101</span>
+                    </td>
+                    <td class="px-6 py-4 text-center">
+                        <button class="text-blue-500 hover:text-blue-600 mx-2"><i class="fa-solid fa-pen-to-square"></i></button>
+                   <button class="text-red-500 hover:text-red-600 mx-2"><i class="fa-solid fa-trash"></i></button>
+                 </td>
+                </tr>
+                </tbody>
+               </table>
+            </div>
+        </div>
+                  <div id="modal" class="hidden fixed inset-0 bg-gray-800  bg-opacity-50 flex justify-center items-center z-50 backdrop-blur-sm">
+                    <div class="bg-white dark:bg-gray-800 w-full max-w-md p-6 rounded-lg shadow-2xl transform transition-all scale-100">
+                        <h3 class="text-2xl fond-bold text-gray-700 dark:text-white mb-6 text-conter">Nouveau Apprenant</h3>
+                   <form id="studentForm" class="space-y-4">
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nom</label>
+                <input type="text" id="nom" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none dark:bg-gray-700 dark:border-gray-600 dark:text-white" placeholder="Entrez le nom" required>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Prénom</label>
+                <input type="text" id="prenom" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none dark:bg-gray-700 dark:border-gray-600 dark:text-white" placeholder="Entrez le prénom" required>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Groupe</label>
+                <input type="text" id="groupe" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none dark:bg-gray-700 dark:border-gray-600 dark:text-white" placeholder="Ex: DEV-102" required>
+            </div>
+
+            <div class="flex justify-between mt-8 pt-4 border-t dark:border-gray-700">
+                <button type="button" onclick="document.getElementById('modal').classList.add('hidden')" 
+                        class="px-5 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg transition dark:bg-gray-600 dark:text-gray-200">
+                    Annuler
+                </button>
+                
+                <button type="submit" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow transition transform hover:scale-105">
+                    Enregistrer
+                </button>
+            </div>
+
+        </form>
+                    </div>
+                  </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
