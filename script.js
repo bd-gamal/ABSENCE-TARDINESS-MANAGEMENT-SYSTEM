@@ -84,13 +84,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function loadData() {
-    // Charger la date
     const savedDate = localStorage.getItem("attendanceDate");
     if (savedDate && dateInput) {
       dateInput.value = savedDate;
     }
 
-    // Charger les présences
     const savedData = localStorage.getItem("attendanceData");
     if (savedData) {
       try {
