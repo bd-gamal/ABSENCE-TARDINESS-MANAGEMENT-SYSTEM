@@ -1,5 +1,3 @@
-
-
 document.addEventListener("DOMContentLoaded", () =>{
     const form = document.getElementById("studentform");
 
@@ -29,12 +27,5 @@ document.addEventListener("DOMContentLoaded", () =>{
 
     alert("saved to localStorage")
     form.reset();
-
-
-
     })
-    
-
-
-
 })
