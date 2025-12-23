@@ -1,3 +1,4 @@
+document.addEventListener("DOMContentLoaded", applyTheme);
 let apprenants = JSON.parse(localStorage.getItem("apprenantsData")) || [];
 let idModif = null;
 
@@ -129,5 +130,23 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+function applyTheme() {
+  const html = document.documentElement;
+  const icon = document.querySelector("#darkToggle i");
+  const label = document.querySelector("#darkToggle span");
+
+  const isDark = localStorage.getItem("theme") === "dark";
+
+  html.classList.toggle("dark", isDark);
+
+  if (icon) icon.className = isDark ? "fa-solid fa-sun" : "fa-solid fa-moon";
+  if (label) label.textContent = isDark ? "Light Mode" : "Dark Mode";
+}
+
+function darkmode() {
+  const isDark = document.documentElement.classList.toggle("dark");
+  localStorage.setItem("theme", isDark ? "dark" : "light");
+  applyTheme();
+}
 
 
