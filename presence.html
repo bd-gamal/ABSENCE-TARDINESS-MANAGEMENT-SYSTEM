@@ -26,7 +26,7 @@
         <nav class="flex-1 p-4 space-y-2">
           <a
             href="home.html"
-            class="w-full text-left py-3 px-4 rounded-lg bg-blue-900 hover:bg-blue-400 transition duration-300 flex items-conter"
+            class="w-full text-left py-3 px-4 rounded-lg hover:bg-blue-600 transition duration-300 flex items-conter"
 
           >
             <i class="fa-solid fa-home w-6"></i>
@@ -84,7 +84,157 @@
             <span class="hidden sm:inline">Dark Mode</span>
           </button>
         </main>
+              <div class="flex-row overflow-y-auto p-0 md:p-0 w-full">
+                <div class="w-[97%] mx-auto space-y-6">
+                    <div
+                        class="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="bg-blue-100 dark:bg-blue-900 p-2 rounded-lg text-blue-600 dark:text-blue-300">
+                                <i class="fa-regular fa-calendar-days text-xl"></i>
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-gray-400 uppercase">Date</label>
+                                <input type="date" id="dateInput"
+                                    class="bg-transparent text-gray-700 dark:text-white font-bold outline-none text-base cursor-pointer">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 overflow-hidden">
+
+                        <div
+                            class="hidden md:grid bg-gray-50 dark:bg-gray-700/50 border-b border-gray-200 dark:border-gray-700 px-6 py-4 grid-cols-12 gap-4 items-center">
+                            <div class="col-span-3 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">
+                                Apprenant</div>
+                            <div
+                                class="col-span-3 text-center text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">
+                                Statut</div>
+                            <div
+                                class="col-span-2 text-center text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">
+                                Heure</div>
+                            <div
+                                class="col-span-4 text-left pl-2 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">
+                                Motif</div>
+                        </div>
+
+                        <div id="studentsList" class="divide-y divide-gray-100 dark:divide-gray-700">
+
+                            <div class="student-row group hover:bg-blue-50 dark:hover:bg-gray-700/30 transition px-4 py-6 md:px-6 md:py-4 grid grid-cols-1 md:grid-cols-12 gap-4 items-center"
+                                data-id="student_1">
+                                <div class="md:col-span-3 flex items-center gap-3">
+                                    <div
+                                        class="w-10 h-10 md:w-8 md:h-8 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-600 dark:text-blue-300 font-bold text-sm">
+                                        YO</div>
+                                    <span
+                                        class="font-bold text-gray-700 dark:text-gray-200 text-lg md:text-base">YOUSSEF</span>
+                                </div>
+
+                                <div
+                                    class="md:col-span-3 flex justify-around md:justify-center gap-4 bg-gray-50 dark:bg-gray-900/50 md:bg-transparent p-3 md:p-0 rounded-lg">
+                                    <label class="cursor-pointer flex flex-col items-center gap-1">
+                                        <input type="radio" name="status_1" value="present" class="peer hidden">
+                                        <div
+                                            class="w-6 h-6 md:w-4 md:h-4 rounded-full border-2 border-green-500 peer-checked:bg-green-500 transition-all">
+                                        </div>
+                                        <span
+                                            class="text-[10px] text-gray-400 peer-checked:text-green-600 font-bold">PRÉSENT</span>
+                                    </label>
+                                    <label class="cursor-pointer flex flex-col items-center gap-1">
+                                        <input type="radio" name="status_1" value="absent" checked class="peer hidden">
+                                        <div
+                                            class="w-6 h-6 md:w-4 md:h-4 rounded-full border-2 border-red-500 peer-checked:bg-red-500 transition-all">
+                                        </div>
+                                        <span
+                                            class="text-[10px] text-gray-400 peer-checked:text-red-500 font-bold">ABSENT</span>
+                                    </label>
+                                    <label class="cursor-pointer flex flex-col items-center gap-1">
+                                        <input type="radio" name="status_1" value="late" class="peer hidden">
+                                        <div
+                                            class="w-4 h-4 rounded-full border-2 border-orange-400 peer-checked:bg-orange-400 transition-all">
+                                        </div>
+                                        <span
+                                            class="text-[10px] text-gray-400 peer-checked:text-orange-500 font-bold">RETARD</span>
+                                    </label>
+                                </div>
+
+                                <div class="md:col-span-2">
+                                    <label
+                                        class="md:hidden text-[10px] text-gray-400 font-bold uppercase mb-1 block">Heure
+                                        d'arrivée</label>
+                                    <input type="time" disabled
+                                        class="time-input w-full rounded-md py-2 md:py-1.5 px-2 text-center text-sm outline-none input-disabled shadow-sm">
+                                </div>
+                                <div class="md:col-span-4">
+                                    <label
+                                        class="md:hidden text-[10px] text-gray-400 font-bold uppercase mb-1 block">Motif
+                                        / Justification</label>
+                                    <input type="text" placeholder="Note..." disabled
+                                        class="motif-input w-full rounded-md py-2 md:py-1.5 px-3 text-sm outline-none input-disabled shadow-sm">
+                                </div>
+                            </div>
+
+                            <div class="student-row group hover:bg-blue-50 dark:hover:bg-gray-700/30 transition px-4 py-6 md:px-6 md:py-4 grid grid-cols-1 md:grid-cols-12 gap-4 items-center"
+                                data-id="student_3">
+                                <div class="md:col-span-3 flex items-center gap-3">
+                                    <div
+                                        class="w-10 h-10 md:w-8 md:h-8 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center text-green-600 dark:text-green-300 font-bold text-sm">
+                                        NA</div>
+                                    <span
+                                        class="font-bold text-gray-700 dark:text-gray-200 text-lg md:text-base">NAJIB</span>
+                                </div>
+
+                                <div
+                                    class="md:col-span-3 flex justify-around md:justify-center gap-4 bg-gray-50 dark:bg-gray-900/50 md:bg-transparent p-3 md:p-0 rounded-lg">
+                                    <label class="cursor-pointer flex flex-col items-center gap-1">
+                                        <input type="radio" name="status_3" value="present" class="peer hidden">
+                                        <div
+                                            class="w-6 h-6 md:w-4 md:h-4 rounded-full border-2 border-green-500 peer-checked:bg-green-500 transition-all">
+                                        </div>
+                                        <span
+                                            class="text-[10px] text-gray-400 peer-checked:text-green-600 font-bold">PRÉSENT</span>
+                                    </label>
+                                    <label class="cursor-pointer flex flex-col items-center gap-1">
+                                        <input type="radio" name="status_3" value="absent" class="peer hidden">
+                                        <div
+                                            class="w-6 h-6 md:w-4 md:h-4 rounded-full border-2 border-red-500 peer-checked:bg-red-500 transition-all">
+                                        </div>
+                                        <span
+                                            class="text-[10px] text-gray-400 peer-checked:text-red-500 font-bold">ABSENT</span>
+                                    </label>
+                                    <label class="cursor-pointer flex flex-col items-center gap-1">
+                                        <input type="radio" name="status_3" value="late" checked class="peer hidden">
+                                        <div
+                                            class="w-6 h-6 md:w-4 md:h-4 rounded-full border-2 border-orange-400 peer-checked:bg-orange-400 transition-all">
+                                        </div>
+                                        <span
+                                            class="text-[10px] text-gray-400 peer-checked:text-orange-500 font-bold">RETARD</span>
+                                    </label>
+                                </div>
+
+                                <div class="md:col-span-2">
+                                    <label
+                                        class="md:hidden text-[10px] text-gray-400 font-bold uppercase mb-1 block">Heure
+                                        d'arrivée</label>
+                                    <input type="time" value="11:30"
+                                        class="time-input w-full rounded-md py-2 md:py-1.5 px-2 text-center text-sm outline-none input-enabled shadow-sm">
+                                </div>
+                                <div class="md:col-span-4">
+                                    <label
+                                        class="md:hidden text-[10px] text-gray-400 font-bold uppercase mb-1 block">Motif
+                                        / Justification</label>
+                                    <input type="text" value="Transport" placeholder="Note..."
+                                        class="motif-input w-full rounded-md py-2 md:py-1.5 px-3 text-sm outline-none input-enabled shadow-sm">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         
+    <script src="presence.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
