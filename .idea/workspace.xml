@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b2740b39-378b-4a55-9956-65f8a8e391fe" name="Changes" comment="">
+    <list default="true" id="b2740b39-378b-4a55-9956-65f8a8e391fe" name="Changes" comment="mod youssef">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Apprenants.html" beforeDir="false" afterPath="$PROJECT_DIR$/Apprenants.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/historique.html" beforeDir="false" afterPath="$PROJECT_DIR$/historique.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/home.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/presence.html" beforeDir="false" afterPath="$PROJECT_DIR$/presence.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/presence.js" beforeDir="false" afterPath="$PROJECT_DIR$/presence.js" afterDir="false" />
@@ -79,9 +77,30 @@
       <updated>1766260399335</updated>
       <workItem from="1766260402132" duration="1882000" />
     </task>
+    <task id="LOCAL-00001" summary="mod youssef">
+      <option name="closed" value="true" />
+      <created>1766591264964</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1766591264964</updated>
+    </task>
+    <task id="LOCAL-00002" summary="mod youssef">
+      <option name="closed" value="true" />
+      <created>1766591392404</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1766591392404</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="mod youssef" />
+    <option name="LAST_COMMIT_MESSAGE" value="mod youssef" />
   </component>
 </project>
