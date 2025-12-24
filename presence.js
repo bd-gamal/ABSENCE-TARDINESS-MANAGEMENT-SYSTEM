@@ -1,143 +1,116 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const sidebar = document.getElementById("sidebar");
-  const menuBtn = document.getElementById("mobileMenuBtn");
-  const overlay = document.getElementById("sidebarOverlay");
-  const html = document.documentElement;
-  const themeBtn = document.getElementById("darkModeBtn");
-  const dateInput = document.getElementById("dateInput");
-  const rows = document.querySelectorAll(".student-row");
-
-  function toggleMenu() {
-    if (sidebar && overlay) {
-      sidebar.classList.toggle("-translate-x-full");
-      overlay.classList.toggle("hidden");
-    }
-  }
-
-  if (menuBtn) menuBtn.addEventListener("click", toggleMenu);
-  if (overlay) overlay.addEventListener("click", toggleMenu);
-
-  const savedTheme = localStorage.getItem("theme");
-
-  if (savedTheme === "dark") {
-    html.classList.add("dark");
-    updateButtonText(true);
-  }
-
-  function updateButtonText(isDark) {
-    if (themeBtn) {
-      const icon = isDark
-        ? '<i class="fa-solid fa-sun"></i>'
-        : '<i class="fa-solid fa-moon"></i>';
-      const text = isDark ? "Light Mode" : "Dark Mode";
-      themeBtn.innerHTML = `${icon} ${text}`;
-    }
-  }
-
-  if (themeBtn) {
-    themeBtn.addEventListener("click", () => {
-      html.classList.toggle("dark");
-      const isDark = html.classList.contains("dark");
-      localStorage.setItem("theme", isDark ? "dark" : "light");
-      updateButtonText(isDark);
-    });
-  }
-
-  const updateRowUI = (row, status) => {
-    const timeInput = row.querySelector(".time-input");
-    const motifInput = row.querySelector(".motif-input");
-
-    if (status === "late") {
-      timeInput.disabled = false;
-      motifInput.disabled = false;
-      timeInput.classList.remove("input-disabled");
-      timeInput.classList.add("input-enabled");
-      motifInput.classList.remove("input-disabled");
-      motifInput.classList.add("input-enabled");
-    } else {
-      timeInput.disabled = true;
-      motifInput.disabled = true;
-      timeInput.classList.remove("input-enabled");
-      timeInput.classList.add("input-disabled");
-      motifInput.classList.remove("input-enabled");
-      motifInput.classList.add("input-disabled");
-    }
-  };
-
-  function saveData() {
-    if (dateInput) {
-      localStorage.setItem("attendanceDate", dateInput.value);
-    }
-
-    const data = [];
-    rows.forEach((row) => {
-      const id = row.getAttribute("data-id");
-      const checkedRadio = row.querySelector('input[type="radio"]:checked');
-      const status = checkedRadio ? checkedRadio.value : null;
-      const time = row.querySelector(".time-input").value;
-      const motif = row.querySelector(".motif-input").value;
-
-      data.push({ id, status, time, motif });
-    });
-
-    localStorage.setItem("attendanceData", JSON.stringify(data));
-  }
-
-  function loadData() {
-    const savedDate = localStorage.getItem("attendanceDate");
-    if (savedDate && dateInput) {
-      dateInput.value = savedDate;
-    }
-
-    const savedData = localStorage.getItem("attendanceData");
-    if (savedData) {
-      try {
-        const data = JSON.parse(savedData);
-        if (!Array.isArray(data)) return;
-
-        rows.forEach((row) => {
-          const id = row.getAttribute("data-id");
-          const item = data.find((d) => d.id === id);
-
-          if (item) {
-            if (item.status) {
-              const radio = row.querySelector(`input[value="${item.status}"]`);
-              if (radio) {
-                radio.checked = true;
-                updateRowUI(row, item.status);
-              }
-            }
-            row.querySelector(".time-input").value = item.time || "";
-            row.querySelector(".motif-input").value = item.motif || "";
-          }
-        });
-      } catch (e) {
-        console.error("Erreur LocalStorage:", e);
-      }
-    }
-  }
-
-  loadData();
-
-  if (dateInput) {
-    dateInput.addEventListener("change", saveData);
-  }
-
-  rows.forEach((row) => {
-    const radios = row.querySelectorAll('input[type="radio"]');
-    const inputs = row.querySelectorAll(
-      'input[type="text"], input[type="time"]'
-    );
-
-    radios.forEach((radio) => {
-      radio.addEventListener("change", (e) => {
-        updateRowUI(row, e.target.value);
-        saveData();
-      });
-    });
-
-    inputs.forEach((input) => {
-      input.addEventListener("input", saveData);
-    });
-  });
+    initPresenceTable();
 });
+
+function initPresenceTable() {
+    // Kanjibo ID li f presence.html
+    const tableBody = document.getElementById("presenceTableBody");
+    const dateInput = document.getElementById("dateInput");
+
+    if (!tableBody) return;
+
+    // Gestion Date
+    if (dateInput) {
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.value = localStorage.getItem("attendanceDate") || today;
+        dateInput.addEventListener("change", (e) => localStorage.setItem("attendanceDate", e.target.value));
+    }
+
+    // 1. Jib Data mn LocalStorage (Nfs Key li f script.js)
+    const apprenants = JSON.parse(localStorage.getItem("apprenantsData")) || [];
+    const attendanceData = JSON.parse(localStorage.getItem("attendanceData")) || [];
+
+    tableBody.innerHTML = "";
+
+    // Ila kan khawi
+    if (apprenants.length === 0) {
+        tableBody.innerHTML = `<tr><td colspan="5" class="text-center py-4">0 Apprenants. Sir l page Apprenants w zidhom b3da.</td></tr>`;
+        return;
+    }
+
+    // Boucle
+    apprenants.forEach((apprenant) => {
+        // Nchoufo wach deja 3ndna statut msjl 3lih
+        const record = attendanceData.find(d => d.id == apprenant.id);
+        const status = record ? record.status : null;
+        const time = record ? record.time : "";
+        const motif = record ? record.motif : "";
+
+        const row = document.createElement("tr");
+        row.className = "hover:bg-gray-50 dark:hover:bg-gray-600 transition";
+        row.setAttribute("data-id", apprenant.id);
+
+        row.innerHTML = `
+            <td class="px-6 py-4">${apprenant.id}</td>
+            <td class="px-6 py-4 font-bold">${apprenant.nom} ${apprenant.prenom}</td>
+            <td class="px-6 py-4">
+                <div class="flex gap-2 justify-center">
+                   <label class="cursor-pointer">
+                        <input type="radio" name="status-${apprenant.id}" value="present" ${status === 'present' ? 'checked' : ''} class="hidden peer">
+                        <div class="px-3 py-1 rounded-full border border-green-500 text-green-500 peer-checked:bg-green-500 peer-checked:text-white text-xs font-bold">P</div>
+                   </label>
+                   <label class="cursor-pointer">
+                        <input type="radio" name="status-${apprenant.id}" value="absent" ${status === 'absent' ? 'checked' : ''} class="hidden peer">
+                        <div class="px-3 py-1 rounded-full border border-red-500 text-red-500 peer-checked:bg-red-500 peer-checked:text-white text-xs font-bold">A</div>
+                   </label>
+                   <label class="cursor-pointer">
+                        <input type="radio" name="status-${apprenant.id}" value="late" ${status === 'late' ? 'checked' : ''} class="hidden peer">
+                        <div class="px-3 py-1 rounded-full border border-orange-400 text-orange-400 peer-checked:bg-orange-400 peer-checked:text-white text-xs font-bold">R</div>
+                   </label>
+                </div>
+            </td>
+            <td class="px-6 py-4">
+                <input type="time" class="time-input bg-transparent border rounded px-2 py-1 text-xs dark:border-gray-500" value="${time}" ${status !== 'late' ? 'disabled' : ''}>
+            </td>
+            <td class="px-6 py-4">
+                <input type="text" class="motif-input bg-transparent border rounded px-2 py-1 text-xs w-full dark:border-gray-500" placeholder="..." value="${motif}" ${status !== 'late' ? 'disabled' : ''}>
+            </td>
+        `;
+
+        tableBody.appendChild(row);
+        attachRowEvents(row);
+    });
+}
+
+function attachRowEvents(row) {
+    const radios = row.querySelectorAll('input[type="radio"]');
+    const timeIn = row.querySelector('.time-input');
+    const motifIn = row.querySelector('.motif-input');
+
+    radios.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            if (e.target.value === 'late') {
+                timeIn.disabled = false;
+                motifIn.disabled = false;
+            } else {
+                timeIn.disabled = true;
+                motifIn.disabled = true;
+                timeIn.value = '';
+                motifIn.value = '';
+            }
+            saveData();
+        });
+    });
+
+    timeIn.addEventListener('input', saveData);
+    motifIn.addEventListener('input', saveData);
+}
+
+function saveData() {
+    const rows = document.querySelectorAll('#presenceTableBody tr');
+    const data = [];
+
+    rows.forEach(row => {
+        const id = row.getAttribute('data-id');
+        const checked = row.querySelector('input[type="radio"]:checked');
+        if (checked) {
+            data.push({
+                id: id,
+                status: checked.value,
+                time: row.querySelector('.time-input').value,
+                motif: row.querySelector('.motif-input').value
+            });
+        }
+    });
+    localStorage.setItem("attendanceData", JSON.stringify(data));
+}
