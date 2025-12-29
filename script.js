@@ -1,169 +1,112 @@
-document.addEventListener("DOMContentLoaded", () => {
 
-    const html = document.documentElement;
-    const themeBtn = document.getElementById("darkModeBtn");
-
-    const historiqueSection = document.getElementById("historiqueSection");
-    const statistiquesSection = document.getElementById("statistiquesSection");
-    const btnHistorique = document.getElementById("btnHistorique");
-    const btnStatistiques = document.getElementById("btnStatistiques");
-
-    btnHistorique.addEventListener("click", e => {
-        e.preventDefault();
-        historiqueSection.classList.remove("hidden");
-        statistiquesSection.classList.add("hidden");
-    });
-
-    btnStatistiques.addEventListener("click", e => {
-        e.preventDefault();
-        historiqueSection.classList.add("hidden");
-        statistiquesSection.classList.remove("hidden");
-    });
-
-    if (localStorage.getItem("theme") === "dark") html.classList.add("dark");
-    themeBtn.addEventListener("click", () => {
-        html.classList.toggle("dark");
-        localStorage.setItem("theme", html.classList.contains("dark") ? "dark" : "light");
-    });
-
-    const storedApprenants = [
-        { id: "student_1", nom: "YOUSSEF" },
-        { id: "student_2", nom: "AHMED" },
-        { id: "student_3", nom: "NAJIB" },
-        { id: "student_4", nom: "SARA" },
-        { id: "student_5", nom: "KHALID" },
-        { id: "student_6", nom: "YASSIN" }
-    ];
-
-    const storedHistorique = [
-        {
-            date: "2024-12-15",
-            records: [
-                { id: "student_1", status: "absent", motif: "Maladie" },
-                { id: "student_2", status: "late", time: "08:45", motif: "Transport" },
-                { id: "student_3", status: "late", time: "08:45", motif: "Transport" },
-                { id: "student_4", status: "absent", motif: "Maladie" },
-                { id: "student_5", status: "late", time: "08:50", motif: "Traffic" },
-                { id: "student_6", status: "absent", motif: "Autorisation" }
-            ]
-        },
-        {
-            date: "2024-12-16",
-            records: [
-                { id: "student_1", status: "late", time: "09:10", motif: "Réveil tard" },
-                { id: "student_2", status: "absent", motif: "Autorisation" },
-                { id: "student_3", status: "absent", motif: "Autorisation" },
-                { id: "student_4", status: "late", time: "09:05", motif: "Réveil tard" },
-                { id: "student_5", status: "late", time: "09:15", motif: "Transport" },
-                { id: "student_6", status: "absent", motif: "Maladie" }
-            ]
-        }
-    ];
-
-    const historiqueData = document.getElementById("historiqueData");
-    const listAbsences = document.getElementById("detailsabsences");
-    const listRetards = document.getElementById("detailsretards");
-
-    storedHistorique.forEach(histo => {
-        const tr = document.createElement("tr");
-        tr.className = "hover:bg-gray-50 dark:hover:bg-gray-700/50 transition";
-
-        const absCount = histo.records.filter(r => r.status === "absent").length;
-
-        const retCount = histo.records.filter(r => r.status === "late").length;
-
-        tr.innerHTML = `
-            <td class="p-3 border-b dark:border-gray-700 font-medium dark:text-white">${histo.date}</td>
-            <td class="p-3 border-b dark:border-gray-700 text-center text-red-500 font-bold">${absCount}</td>
-            <td class="p-3 border-b dark:border-gray-700 text-center text-orange-500 font-bold">${retCount}</td>
-            <td class="p-3 border-b dark:border-gray-700">
-                <button class="view-btn bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700">Détails</button>
-            </td>
-        `;
-        historiqueData.appendChild(tr);
-
-        tr.querySelector(".view-btn").addEventListener("click", () => {
-            listAbsences.innerHTML = "";
-            listRetards.innerHTML = "";
-
-            histo.records.forEach(rec => {
-              const app = storedApprenants.find(a => a.id === rec.id);
-             const nom = app ? app.nom : rec.id;
-
-                if (rec.status === "absent") {
-                 const li = document.createElement("li");
-                    li.className = "p-2 rounded text-sm bg-red-50 text-red-700 dark:bg-red-900/20";
-                    li.textContent = `${nom} - Motif: ${rec.motif || "Non justifié"}`;
-                    listAbsences.appendChild(li);
-                } else if (rec.status === "late") {
-                    const li = document.createElement("li");
-                    li.className = "p-2 rounded text-sm bg-orange-50 text-orange-700 dark:bg-orange-900/20";
-                    li.textContent = `${nom} - Arrivé à: ${rec.time || "--:--"} - Motif: ${rec.motif || "Aucun"}`;
-                    listRetards.appendChild(li);
-               }
-         });
-        });
-    });
-
-    function calculerStats() {
-         let totalAbs = 0;
-        let totalRet = 0;
-        let absentsList = [];
-        let retardsList = [];
-
-        storedHistorique.forEach(day => {
-            day.records.forEach(r => {
-            const student = storedApprenants.find(s => s.id === r.id);
-            const name = student ? student.nom : r.id;
-
-                if (r.status === "absent") {
-                    totalAbs++;
-                    absentsList.push(name);
-                }
-                if (r.status === "late") {
-                    totalRet++;
-                    retardsList.push(name);
-                }
-            });
-        });
-
-        const totalCases = storedApprenants.length * storedHistorique.length;
-
-        document.getElementById("tauxAbs").textContent = ((totalAbs / totalCases) * 100).toFixed(1) + "%";
-        document.getElementById("tauxRet").textContent = ((totalRet / totalCases) * 100).toFixed(1) + "%";
-
-        function getTop3(list) {
-         let counted = [];
-             list.forEach(name => {
-                const existing = counted.find(c => c.name === name);
-                if (existing) existing.count++;
-                else counted.push({ name: name, count: 1 });
-            });
-            counted.sort((a, b) => b.count - a.count);
-            return counted.slice(0, 3);
-        }
-
-        const topAbs = getTop3(absentsList);
-        const topRet = getTop3(retardsList);
-
-        const topAbsentsEl = document.getElementById("topAbsents");
-        topAbsentsEl.innerHTML = "";
-        topAbs.forEach(s => {
-            const div = document.createElement("div");
-            div.className = "text-sm dark:text-gray-400";
-            div.textContent = `${s.name} (${s.count} fois)`;
-            topAbsentsEl.appendChild(div);
-        });
-
-        const topRetardsEl = document.getElementById("topRetards");
-        topRetardsEl.innerHTML = "";
-        topRet.forEach(s => {
-            const div = document.createElement("div");
-            div.className = "text-sm dark:text-gray-400";
-            div.textContent = `${s.name} (${s.count} fois)`;
-            topRetardsEl.appendChild(div);
-        });
-    }
-
-    calculerStats();
+["apprenantsData", "attendanceHistory"].forEach((k) => {
+    const v = localStorage.getItem(k);
+    if (v === "undefined" || v === "null" || v === "") localStorage.removeItem(k);
 });
+
+function readJSON(key, fallback) {
+    const raw = localStorage.getItem(key);
+    if (!raw || raw === "undefined" || raw === "null") return fallback;
+    try {
+        return JSON.parse(raw) ?? fallback;
+    } catch { return fallback; }
+}
+
+function writeJSON(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+}
+
+let idModification = null;
+
+document.addEventListener("DOMContentLoaded", () => {
+    applyTheme();
+    gérerNavigationActive();
+    if (document.getElementById("tableBody")) afficherTableauApprenants();
+    
+    const form = document.getElementById("studentForm");
+    if (form) form.addEventListener("submit", gererAjoutOuModification);
+});
+
+
+function gérerNavigationActive() {
+    const path = window.location.pathname.split("/").pop().toLowerCase() || "home.html";
+    document.querySelectorAll("aside nav a").forEach((link) => {
+        const href = link.getAttribute("href").toLowerCase();
+        link.classList.remove("bg-blue-900", "dark:bg-gray-700");
+        if (href === path) link.classList.add("bg-blue-900", "dark:bg-gray-700");
+    });
+}
+
+
+function applyTheme() {
+    const isDark = localStorage.getItem("theme") === "dark";
+    document.documentElement.classList.toggle("dark", isDark);
+    const icon = document.querySelector("#darkToggle i");
+    if (icon) icon.className = isDark ? "fa-solid fa-sun" : "fa-solid fa-moon";
+}
+
+function darkmode() {
+    const isDark = document.documentElement.classList.toggle("dark");
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+    applyTheme();
+}
+
+
+function afficherTableauApprenants() {
+    const body = document.getElementById("tableBody");
+    if (!body) return;
+    const apprenants = readJSON("apprenantsData", []);
+    body.innerHTML = apprenants.length ? "" : '<tr><td colspan="5" class="text-center py-6">Aucun apprenant.</td></tr>';
+    apprenants.forEach(a => {
+        body.innerHTML += `
+            <tr class="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 transition">
+                <td class="px-6 py-4">${a.id}</td>
+                <td class="px-6 py-4">${a.nom}</td>
+                <td class="px-6 py-4">${a.prenom}</td>
+                <td class="px-6 py-4 text-center">${a.groupe}</td>
+                <td class="px-6 py-4">
+                    <button onclick="preparerModification(${a.id})" class="text-blue-500 mr-2"><i class="fa-solid fa-pen"></i></button>
+                    <button onclick="supprimerApprenant(${a.id})" class="text-red-500"><i class="fa-solid fa-trash"></i></button>
+                </td>
+            </tr>`;
+    });
+}
+
+function gererAjoutOuModification(e) {
+    e.preventDefault();
+    const data = {
+        nom: document.getElementById("nom").value,
+        prenom: document.getElementById("prenom").value,
+        email: document.getElementById("email").value,
+        groupe: document.getElementById("groupe").value
+    };
+    let list = readJSON("apprenantsData", []);
+    if (idModification) {
+        const idx = list.findIndex(a => a.id === idModification);
+        list[idx] = { ...list[idx], ...data };
+        idModification = null;
+    } else {
+        const newId = list.length ? Math.max(...list.map(a => a.id)) + 1 : 1;
+        list.push({ id: newId, ...data });
+    }
+    writeJSON("apprenantsData", list);
+    location.reload();
+}
+
+function supprimerApprenant(id) {
+    if (!confirm("Supprimer ?")) return;
+    let list = readJSON("apprenantsData", []);
+    writeJSON("apprenantsData", list.filter(a => a.id !== id));
+    afficherTableauApprenants();
+}
+
+function preparerModification(id) {
+    const a = readJSON("apprenantsData", []).find(x => x.id === id);
+    if (!a) return;
+    idModification = a.id;
+    document.getElementById("nom").value = a.nom;
+    document.getElementById("prenom").value = a.prenom;
+    document.getElementById("email").value = a.email;
+    document.getElementById("groupe").value = a.groupe;
+    document.getElementById("modal").classList.remove("hidden");
+}

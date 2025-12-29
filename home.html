@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestion des Apprenants</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+      <script>
+        tailwind.config = {
+          darkMode: "class",
+        };
+      </script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body class="bg-gray-100 font-sans dark:bg-gray-700">
+
+
+    <div class="flex h-screen">
+      <aside class="w-64 bg-blue-600 text-white flex flex-col hidden md:flex dark:bg-gray-800">
+        <div class="p-6 text-center">
+          <h1 class="text-xl font-extrabold tracking-wide">MENA</h1>
+        </div>
+        <nav class="flex-1 p-4 space-y-2">
+          <a
+            href="home.html"
+            class="w-full text-left py-3 px-4 rounded-lg bg-blue-900 hover:bg-blue-400 transition duration-300 flex items-conter"
+
+          >
+            <i class="fa-solid fa-home w-6"></i>
+            Home
+          </a>
+
+          <a
+          href="apprenants.html"
+            class="w-full text-left py-3 px-4 rounded-lg hover:bg-blue-600 transition duration-300 flex items-conter"
+
+          >
+            <i class="fa-solid fa-users w-6"></i>
+            Apprenants
+          </a>
+
+          <a
+          href="Presence.html"
+            class="w-full text-left py-3 px-4 rounded-lg hover:bg-blue-400 transition duration-300 flex items-conter"
+          >
+            <i class="fa-solid fa-check-to-slot w-6"></i>
+            Marquer Presence
+          </a>
+
+          <a
+          href="historique.html"
+            class="w-full text-left py-3 px-4 rounded-lg hover:bg-blue-400 transition duration-300 flex items-conter"
+          >
+            <i class="fa-solid fa-clock w-6"></i>
+            Historique
+          </a>
+          <a
+          href="statistiques.html"
+            class="w-full text-left py-3 px-4 rounded-lg hover:bg-blue-400 transition duration-300 flex items-conter"
+          >
+            <i class="fa-solid fa-chart-pie w-6"></i>
+            Statistiques
+          </a>
+        </nav>
+      </aside>
+      <div class="flex flex-col w-full">
+        <header
+          class="flex p-4 bg-blue-600 dark:bg-gray-800 h-[80px] w-full justify-between items-center overflow-auto"
+        >
+          <h1
+            class="text-white text-left font-extrabold text-2xl text-lg h-fit"
+          >
+            HOME
+          </h1>
+          <button
+          onclick="darkmode()"
+            id="darkToggle"
+            class="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-200 px-3 py-2 md:px-5 md:py-2.5 rounded-lg font-medium text-sm md:text-base hover:bg-gray-200 dark:hover:bg-gray-600 transition flex items-center gap-2"
+          >
+            <i class="fa-solid fa-moon"></i>
+            <span class="hidden sm:inline">Dark Mode</span>
+          </button>
+        </header>
+        <main class="overflow-auto flex flex-col mb-6 gap-6">
+          <div class=" bg-gray-200 font-sans dark:bg-gray-700 flex flex-row justify-between m-4 rounded-2xl border border-gray-300 shadow-sm">
+            <div class="text-black dark:text-white p-4 rounded-2 border-gray-400 ">
+                 <p class="text-gray-600 drak:text-gray-100">Aujourd'hui</p>
+                 <i class="text-black">date</i> 
+            </div>
+            <div class = "text-black dark:text-white p-4  border-gray-400 ">
+                 
+            </div> 
+          </div>
+        </main>
+
+        
+    <script src="script.js"></script>
+     </body>
+</html>
