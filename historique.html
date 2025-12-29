@@ -67,7 +67,7 @@
         </nav>
       </aside>
       <div class="flex flex-col w-full">
-        <main
+        <header
           class="flex p-4 bg-blue-600 dark:bg-gray-800 h-[80px] w-full justify-between items-center overflow-auto"
         >
           <h1
@@ -83,9 +83,37 @@
             <i class="fa-solid fa-moon"></i>
             <span class="hidden sm:inline">Dark Mode</span>
           </button>
-        </main>
+        </header>
+        <main class="p-6 space-y-6 overflow-y-auto dark:text-gray-100">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded">
+          <table class="w-full">
+            <thead>
+              <tr class="text-left">
+                <th>Date</th>
+                <th class="text-center">Absents</th>
+                <th class="text-center">Retards</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="historiqueData"></tbody>
+          </table>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="bg-white dark:bg-gray-800 p-6 rounded">
+            <h3 class="text-red-500 font-bold mb-3">Absences</h3>
+            <ul id="detailsabsences"></ul>
+          </div>
+
+          <div class="bg-white dark:bg-gray-800 p-6 rounded">
+            <h3 class="text-orange-500 font-bold mb-3">Retards</h3>
+            <ul id="detailsretards"></ul>
+          </div>
+        </div>
+      </main>
         
         
     <script src="script.js"></script>
+    <script src="historique.js"></script>
   </body>
 </html>
