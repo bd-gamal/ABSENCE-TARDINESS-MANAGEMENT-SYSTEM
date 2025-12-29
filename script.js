@@ -144,3 +144,4 @@ function darkmode() {
     localStorage.setItem("theme", isDark ? "dark" : "light");
     applyTheme();
 }
+
