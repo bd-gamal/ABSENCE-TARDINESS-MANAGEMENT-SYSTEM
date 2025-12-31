@@ -27,7 +27,7 @@
         </nav>
     </aside>
 
-    <main class = "flex flex-col overflow-hidden h-screen w-screen">
+    <main class = "flex flex-col overflow-hidden h-screen w-screen p-4">
         <header class="h-16 bg-white border-b flex items-center justify-between px-8">
             <h2 class="text-lg font-semibold">profil</h2>
             <span id="header-user-name" class="font-medium text-sm">...</span>
@@ -36,14 +36,20 @@
             <div class = "text-xl p-4"><p>---</p>
             </div>
         </div>
-        <div class="p-4 h-[70vh] bg-gray-200 m-4 flex flex-row p-4">
+        <div class="p-4 h-[70vh] bg-gray-200 flex flex-row ">
             <div class="relative bg-gray-300 h-full w-[25vw] flex flex-col items-center p-6">
-                <div class="bg-gray-800 h-45px w-45 rounded-full  flex justify-center ">
+            <div class="relative bg-gray-300 h-full w-[25vw] flex flex-col items-center p-6">
+                <div class="bg-gray-800 w-[50%] aspect-square rounded-full flex items-center justify-center">
                     <img
-                     src="user.jpg" 
-                     id="pfp" 
-                     class="h-[95%] w-[95%] rounded-full object-cover">
+                        src="user.jpg"
+                        id="pfp"
+                        class="h-[95%] w-[95%] rounded-full object-cover"
+                    >
                 </div>
+                <input type="file" id="pfp">
+                <label for="file" id="uploadbtn"><i class="fas fa-camera"></i></label>
+</div>
+
 
 
 
