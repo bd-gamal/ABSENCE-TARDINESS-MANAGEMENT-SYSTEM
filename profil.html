@@ -10,9 +10,9 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="bg-gray-50 font-sans h-screen w-screen ">
+<body class="bg-gray-50 font-sans h-screen w-screen flex flex-row">
 
-    <aside class="w-64 bg-white border-r hidden md:block">
+    <aside class="w-64 h-screen bg-white border-r hidden md:block">
         <div class="h-16 flex items-center justify-center border-b font-bold text-blue-600 text-xl">ENAA Student</div>
         <nav class="mt-6">
             <a href="dashboard.html" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50"><i
@@ -27,15 +27,36 @@
         </nav>
     </aside>
 
-    <div class="flex-1 flex flex-col overflow-hidden">
+    <main class = "flex flex-col overflow-hidden h-screen w-screen">
         <header class="h-16 bg-white border-b flex items-center justify-between px-8">
-            <h2 class="text-lg font-semibold">Dashboard</h2>
+            <h2 class="text-lg font-semibold">profil</h2>
             <span id="header-user-name" class="font-medium text-sm">...</span>
         </header>
-    </div>
-        <main class="p-4 overflow-y-auto flex flex-col bg-blue-400">
-            hhh
-        </main>
+        <div class="p-4 overflow-y-auto text-center bg-gray-200 m-4 rounded-full">
+            <div class = "text-xl p-4"><p>---</p>
+            </div>
+        </div>
+        <div class="p-4 h-[70vh] bg-gray-200 m-4 flex flex-row p-4">
+            <div class="relative bg-gray-300 h-full w-[25vw] flex flex-col items-center p-6">
+                <div class="bg-gray-800 h-45px w-45 rounded-full  flex justify-center ">
+                    <img
+                     src="user.jpg" 
+                     id="pfp" 
+                     class="h-[95%] w-[95%] rounded-full object-cover">
+                </div>
+
+
+
+                
+            </div>
+
+        </div>
+        
+        
+        
+
+    </main>
+
 
     <script src="historique.js"></script>
     <script src="dashboard.js"></script>
