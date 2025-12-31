@@ -1,94 +1,70 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const table = document.getElementById("historiqueData");
-  if (!table) return;
+const apprenants = JSON.parse(localStorage.getItem("apprenantsData")) || [];
+const historiquesObj = JSON.parse(localStorage.getItem("attendanceHistory")) || {};
 
-  const history = readJSON("attendanceHistory", {});
-  table.innerHTML = "";
+const historiqueData = document.getElementById("historiqueData");
+const listDetails = document.getElementById("detailsabsences");
+const absentes = document.getElementById("detailsretards");
+
+Object.keys(historiquesObj).forEach(date => {
+  const records = historiquesObj[date];
+
+  const tr = document.createElement("tr");
+  const dateTd = document.createElement("td");
+  const absenteTd = document.createElement("td");
+  const retardTd = document.createElement("td");
+  const button = document.createElement("button");
 
   
-  if (Object.keys(history).length === 0) {
-    table.innerHTML = `
-      <tr>
-        <td colspan="4" class="text-center py-6 text-gray-500">
-          Aucun historique disponible
-        </td>
-      </tr>
-    `;
-    return;
-  }
+  let absenteNum = 0;
+  let retardNum = 0;
 
+  records.forEach(r => {
+    if (r.status === "absent"){
+       absenteNum++;
+    } 
+    if (r.status === "late"){
+        retardNum++;
+    } 
+  });
 
-  Object.keys(history)
-    .sort((a, b) => new Date(b) - new Date(a))
-    .forEach((date) => {
-      const dayData = history[date] || [];
+  dateTd.textContent = date;
+  absenteTd.textContent = absenteNum;
+  retardTd.textContent = retardNum;
+  button.textContent = "details";
 
-      let absents = 0;
-      let retards = 0;
+  button.className = "bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600";
 
-      dayData.forEach((p) => {
-        if (p.status === "absent") absents++;
-        if (p.status === "late") retards++;
-      });
+  tr.appendChild(dateTd);
+  tr.appendChild(absenteTd);
+  tr.appendChild(retardTd);
+  tr.appendChild(button);
 
-      const tr = document.createElement("tr");
-      tr.className = "border-b dark:border-gray-700";
+  historiqueData.appendChild(tr);
 
-      tr.innerHTML = `
-        <td class="px-6 py-4">${formatDate(date)}</td>
-        <td class="px-6 py-4 text-center text-red-500 font-bold">${absents}</td>
-        <td class="px-6 py-4 text-center text-orange-500 font-bold">${retards}</td>
-        <td class="px-6 py-4">
-          <button onclick="voirDetails('${date}')" class="bg-blue-600 text-white px-3 py-1 rounded">
-            Détails
-          </button>
-        </td>
-      `;
+ 
+  button.addEventListener("click", () => {
+    listDetails.innerHTML = "";
+    absentes.innerHTML = "";
 
-      table.appendChild(tr);
+    records.forEach(r => {
+      const apprenant = apprenants.find(a => a.id == r.id);
+      if (!apprenant){
+          return;
+      } 
+
+      if (r.status === "absent") {
+        const li = document.createElement("li");
+        li.textContent = `ID: ${r.id} - ${apprenant.nom} ${apprenant.prenom} - ${apprenant.groupe} - Absent - Motif: ${r.motif}`;
+        listDetails.appendChild(li);
+      }
+
+      if (r.status === "late") {
+        const li = document.createElement("li");
+        li.textContent = `ID: ${r.id} - ${apprenant.nom} ${apprenant.prenom} - ${apprenant.groupe} - Retard - Heure: ${r.time} - Motif: ${r.motif}`;
+        absentes.appendChild(li);
+      }
     });
+  });
 });
 
 
-function voirDetails(date) {
-  const history = readJSON("attendanceHistory", {});
-  const apprenants = readJSON("apprenantsData", []);
-  const data = history[date] || [];
-
-  const absList = document.getElementById("detailsabsences");
-  const retList = document.getElementById("detailsretards");
-
-  absList.innerHTML = "";
-  retList.innerHTML = "";
-
-  if (data.length === 0) {
-    absList.innerHTML = "<li>Aucune donnée</li>";
-    retList.innerHTML = "<li>Aucune donnée</li>";
-    return;
-  }
-
-  data.forEach((p) => {
-    const app = apprenants.find((a) => a.id == p.id);
-    const name = app ? `${app.nom} ${app.prenom}` : "Inconnu";
-
-    if (p.status === "absent") {
-      absList.innerHTML += `<li>${name} — <i>${p.motif || "Sans motif"}</i></li>`;
-    }
-
-    if (p.status === "late") {
-      retList.innerHTML += `<li>${name} — ${p.time || "-"} <i>(${p.motif || "—"})</i></li>`;
-    }
-  });
-}
-
-
-function formatDate(dateStr) {
-  const d = new Date(dateStr);
-  return isNaN(d)
-    ? dateStr
-    : d.toLocaleDateString("fr-FR", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-      });
-}
