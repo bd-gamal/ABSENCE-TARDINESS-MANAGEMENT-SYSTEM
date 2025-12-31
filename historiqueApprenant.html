@@ -6,7 +6,6 @@
     <title>Historique Personnel</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-gray-50 font-sans">
 
@@ -25,14 +24,13 @@
         <div class="flex-1 flex flex-col h-screen overflow-hidden">
             <header class="h-16 bg-white border-b flex items-center justify-between px-8">
                 <h2 class="text-lg font-semibold">Historique Personnel</h2>
-                <div class="font-medium text-sm">GAMAL BADIE</div>
+                <div class="font-medium text-sm" id="user-display-name">Étudiant</div>
             </header>
 
             <main class="p-8 overflow-y-auto">
                 <div class="bg-white rounded shadow border">
                     
                     <div class="p-4 border-b bg-gray-50 flex flex-wrap gap-4 justify-end">
-                        
                         <select id="filter-mois" class="border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
                             <option value="all">Tous les mois</option>
                             <option value="12">Décembre</option>
@@ -79,13 +77,8 @@
                 </button>
             </div>
             <div class="space-y-4">
-                <p class="text-sm text-gray-500">Raison déclarée pour le retard/absence :</p>
-                <div class="bg-gray-50 p-4 rounded border text-gray-800 italic" id="modal-content">
-                    </div>
-                <div class="flex items-center gap-2 text-blue-600 cursor-pointer hover:underline">
-                    <i class="fas fa-paperclip"></i>
-                    <span>Justificatif.pdf (Simulé)</span>
-                </div>
+                <p class="text-sm text-gray-500">Raison déclarée :</p>
+                <div class="bg-gray-50 p-4 rounded border text-gray-800 italic" id="modal-content"></div>
             </div>
             <div class="mt-6 flex justify-end">
                 <button onclick="closeModal()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Fermer</button>
@@ -94,25 +87,44 @@
     </div>
 
     <script>
-        if (!localStorage.getItem("presences")) {
-            const dataTest = [
-                { idApprenant: "AP001", date: "2025-12-29", statut: "Present", heureArrivee: "08:25", motif: "" },
-                { idApprenant: "AP001", date: "2025-12-28", statut: "Retard", heureArrivee: "09:10", motif: "Problème de transport (Bus en panne)" },
-                { idApprenant: "AP001", date: "2025-12-25", statut: "Absent", heureArrivee: "-", motif: "Maladie (Certificat médical envoyé)" },
-                { idApprenant: "AP001", date: "2025-11-15", statut: "Retard", heureArrivee: "08:45", motif: "Réveil tardif" },
-                { idApprenant: "AP001", date: "2025-11-10", statut: "Present", heureArrivee: "08:30", motif: "" },
-            ];
-            localStorage.setItem("presences", JSON.stringify(dataTest));
-            localStorage.setItem("currentUser", "AP001");
-            console.log("Données injectées !");
+
+        if(!localStorage.getItem("currentUser")) {
+            localStorage.setItem("currentUser", "1"); 
         }
 
-        const historyData = JSON.parse(localStorage.getItem("presences")) || [];
+        const currentUserId = localStorage.getItem("currentUser");
+
+        const apprenants = JSON.parse(localStorage.getItem("apprenantsData")) || [];
+        const userDetails = apprenants.find(a => String(a.id) === String(currentUserId));
+        if(userDetails) {
+            document.getElementById("user-display-name").textContent = `${userDetails.nom || ''} ${userDetails.prenom || ''}`;
+        }
+
+        const rawAttendance = JSON.parse(localStorage.getItem("attendanceData")) || [];
+
+        function normalizeStatus(adminStatus) {
+            if (!adminStatus) return "Present";
+            const s = adminStatus.toLowerCase();
+            if (s === 'late') return 'Retard';
+            if (s === 'absent') return 'Absent';
+            return 'Present';
+        }
+
+        const historyData = rawAttendance
+            .filter(record => String(record.id) === String(currentUserId))
+            .map(record => {
+                return {
+                    date: record.date || new Date().toISOString().split('T')[0], 
+                    statut: normalizeStatus(record.status),
+                    heureArrivee: record.time || "-",
+                    motif: record.motif || ""
+                };
+            });
+
         const tbody = document.getElementById("history-tbody");
         const emptyMsg = document.getElementById("empty-msg");
         const modal = document.getElementById("motif-modal");
-        const modalContent = document.getElementById("modal-content");
-
+        
         function renderHistory() {
             const moisFilter = document.getElementById("filter-mois").value;
             const statutFilter = document.getElementById("filter-statut").value;
@@ -138,7 +150,7 @@
                     if(item.statut === 'Absent') badgeColor = "bg-red-100 text-red-800";
 
                     let motifHtml = `<span class="text-gray-400">-</span>`;
-                    if (item.motif && item.motif !== "") {
+                    if (item.motif && item.motif.trim() !== "") {
                         motifHtml = `
                             <button onclick="openModal('${encodeURIComponent(item.motif)}')" class="text-blue-600 hover:text-blue-800 font-medium text-xs border border-blue-200 bg-blue-50 px-2 py-1 rounded">
                                 <i class="far fa-eye"></i> Voir motif
