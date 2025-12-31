@@ -6,10 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b2740b39-378b-4a55-9956-65f8a8e391fe" name="Changes" comment="mod youssef">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/presence.html" beforeDir="false" afterPath="$PROJECT_DIR$/presence.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/presence.js" beforeDir="false" afterPath="$PROJECT_DIR$/presence.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/script.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +44,7 @@
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "NAJIB",
     "ignore.virus.scanning.warn.message": "true",

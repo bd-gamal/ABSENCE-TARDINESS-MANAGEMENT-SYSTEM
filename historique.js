@@ -1,62 +1,68 @@
-function readJSON(key, fallback) {
-  const raw = localStorage.getItem(key);
-  if (!raw || raw === "undefined" || raw === "null") return fallback;
-  try {
-    return JSON.parse(raw);
-  } catch {
-    return fallback;
-  }
-}
+const apprenants = JSON.parse(localStorage.getItem("apprenantsData")) || [];
+const historiquesObj = JSON.parse(localStorage.getItem("attendanceHistory")) || {};
 
-document.addEventListener("DOMContentLoaded", () => {
-  const table = document.getElementById("historiqueData");
-  const absList = document.getElementById("detailsabsences");
-  const retList = document.getElementById("detailsretards");
-  if (!table || !absList || !retList) return;
+const historiqueData = document.getElementById("historiqueData");
+const listDetails = document.getElementById("detailsabsences");
+const absentes = document.getElementById("detailsretards");
 
-  const apprenants = readJSON("apprenantsData", []);
-  const presence = readJSON("attendanceData", []);
-
-  const date =
-    localStorage.getItem("attendanceDate") ||
-    new Date().toISOString().split("T")[0];
-
-  const getName = (id) => {
-    const a = apprenants.find((x) => String(x.id) === String(id));
-    if (!a) return String(id);
-    return `${a.nom || ""} ${a.prenom || ""}`.trim() || String(id);
-  };
-
-  const absents = presence.filter((r) => r && r.status === "absent");
-  const retards = presence.filter((r) => r && r.status === "late");
-
-  table.innerHTML = "";
-  absList.innerHTML = "";
-  retList.innerHTML = "";
+Object.keys(historiquesObj).forEach(date => {
+  const records = historiquesObj[date];
 
   const tr = document.createElement("tr");
-  tr.innerHTML = `
-    <td>${date}</td>
-    <td class="text-center text-red-500">${absents.length}</td>
-    <td class="text-center text-orange-500">${retards.length}</td>
-    <td><button class="view bg-blue-600 text-white px-3 py-1 rounded">Voir</button></td>
-  `;
-  table.appendChild(tr);
+  const dateTd = document.createElement("td");
+  const absenteTd = document.createElement("td");
+  const retardTd = document.createElement("td");
+  const button = document.createElement("button");
 
-  tr.querySelector(".view").onclick = () => {
-    absList.innerHTML = absents.length ? "" : "<li>Aucune absence</li>";
-    retList.innerHTML = retards.length ? "" : "<li>Aucun retard</li>";
+  
+  let absenteNum = 0;
+  let retardNum = 0;
 
-    absents.forEach((r) => {
-      const li = document.createElement("li");
-      li.textContent = `${getName(r.id)} - ${r.motif || "Non justifié"}`;
-      absList.appendChild(li);
+  records.forEach(r => {
+    if (r.status === "absent"){
+       absenteNum++;
+    } 
+    if (r.status === "late"){
+        retardNum++;
+    } 
+  });
+
+  dateTd.textContent = date;
+  absenteTd.textContent = absenteNum;
+  retardTd.textContent = retardNum;
+  button.textContent = "details";
+
+  button.className = "bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600";
+
+  tr.appendChild(dateTd);
+  tr.appendChild(absenteTd);
+  tr.appendChild(retardTd);
+  tr.appendChild(button);
+
+  historiqueData.appendChild(tr);
+
+ 
+  button.addEventListener("click", () => {
+    listDetails.innerHTML = "";
+    absentes.innerHTML = "";
+
+    records.forEach(r => {
+      const apprenant = apprenants.find(a => a.id == r.id);
+      if (!apprenant){
+          return;
+      } 
+
+      if (r.status === "absent") {
+        const li = document.createElement("li");
+        li.textContent = `ID: ${r.id} - ${apprenant.nom} ${apprenant.prenom} - ${apprenant.groupe} - Absent - Motif: ${r.motif}`;
+        listDetails.appendChild(li);
+      }
+
+      if (r.status === "late") {
+        const li = document.createElement("li");
+        li.textContent = `ID: ${r.id} - ${apprenant.nom} ${apprenant.prenom} - ${apprenant.groupe} - Retard - Heure: ${r.time} - Motif: ${r.motif}`;
+        absentes.appendChild(li);
+      }
     });
-
-    retards.forEach((r) => {
-      const li = document.createElement("li");
-      li.textContent = `${getName(r.id)} - ${r.time || "--:--"} - ${r.motif || ""}`;
-      retList.appendChild(li);
-    });
-  };
+  });
 });
