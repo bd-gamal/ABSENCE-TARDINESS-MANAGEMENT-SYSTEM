@@ -10,39 +10,27 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
 </head>
-<body>
-   <header class = "flex flex-col items-center">
-        <h1 class="text-6xl text-blue-300">MENA Login</h1>
-    </header>
+<body class="w-full h-screen bg-[url('Gemini_Generated_Image_p0nptrp0nptrp0np.png')] bg-cover bg-center bg-no-repeat md:flex-row max-w-4xl mx-auto">
+  
+   <div class="flex justify-center h-screen items-center gap-12">
 
-    <div class="inline-flex bg-blue-600 text-white px-7 py-4 rounded-lg">
-        <button class="text-4xl">Home</button>
-    </div>
-    <div class="flex flex-row justify-center gap-12">
-        <div class=" bg-blue-50 w-[50vh] h-[30vh] gap-2">
-            <div class="bg-green-400 h-[60%] p-4">
-                <p class="text-4xl text-black dark:text-white mb-4">Administration</p>
-                <p>espace pour l'administration et les formatuers.</p>
-            </div>
-            <div class="inline-flex bg-blue-600 text-white px-7 py-4 ">
-                <a href = "home.html"class="text-3xl">Login</a>
-            </div>
-            
-            
-        </div>
-        <div class="bg-blue-50 w-[50vh] h-[30vh] flex flex-col gap-2">
-        <div class="bg-green-400 h-[60%] p-4">
-            <p class="text-4xl text-black mb-4">Student</p>
-            <p>espace pour les etudiants.</p>
+
+        <div class="bg-white flex-1 hover:bg-gray-200 dark:bg-gray-800 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700  flex flex-col justify-center items-center text-center ">
+            <p class="text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wider text-sm mb-2">Administration</p>
+             <p>espace pour l'administration et les formatuers</p>
+       <button class=" hover:bg-blue-700 text-black hover:text-white font-bold py-2 px-4 rounded-lg shadow transition flex items-center">
+        <a href = "home.html" >
+          <i class="fa-solid fa-user">Login </i>
+          </a></button>
+           
         </div>
 
-       
-       
-    
-    
-     <button onclick="document.getElementById('modal').classList.remove('hidden')"
-            class="'bg-gray-600 hover:bg-blue-700 text-black hover:text-white font-bold py-2 px-4 rounded-lg shadow transition flex items-center">
-            <i class="fa-solid fa-user"> </i>  
+        <div class="bg-white flex-1 hover:bg-gray-200 dark:bg-gray-800 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col justify-center items-center text-center">
+            <p class="text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wider text-sm mb-2">Student</p>
+            <p>espace pour les etudiants</p>
+ <button onclick="document.getElementById('modal').classList.remove('hidden')"
+            class=" hover:bg-blue-700 text-black hover:text-white font-bold py-2 px-4 rounded-lg shadow transition flex items-center">
+            <i class="fa-solid fa-user">Login </i>  
           </button>
           <div id="modal"
         class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50 backdrop-blur-sm">
@@ -82,7 +70,12 @@
           </div>
         </div>
          </div>
+        </div>
 
+       </div>
+    
+    
+    
     </div>
 <script src="login.js"></script>
 </body>
