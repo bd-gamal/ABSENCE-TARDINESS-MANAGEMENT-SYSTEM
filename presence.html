@@ -1,89 +1,63 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Marquer la Présence</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script> tailwind.config = { darkMode: "class" }; </script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marquer la Présence</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config = { darkMode: "class" };</script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
-<body class="bg-gray-100 font-sans dark:bg-gray-700">
 
-   
-  <div class="flex h-screen">
-    <aside class="w-64 bg-blue-600 text-white flex flex-col hidden md:flex dark:bg-gray-800">
-      <div class="p-6 text-center">
-        <h1 class="text-xl font-extrabold tracking-wide">MENA</h1>
+<body class="bg-gray-100 dark:bg-gray-700 font-sans">
+
+<div class="flex h-screen">
+  <aside class="w-64 bg-blue-600 text-white hidden md:flex flex-col dark:bg-gray-800">
+    <div class="p-6 text-center font-bold text-xl">MENA</div>
+    <nav class="flex-1 p-4 space-y-2">
+      <a href="home.html" class="flex px-4 py-3 hover:bg-blue-400"><i class="fa-solid fa-home w-6"></i> Home</a>
+      <a href="apprenants.html" class="flex px-4 py-3 hover:bg-blue-400"><i class="fa-solid fa-users w-6"></i> Apprenants</a>
+      <a href="Presence.html" class="flex px-4 py-3 bg-blue-900"><i class="fa-solid fa-check-to-slot w-6"></i> Presence</a>
+      <a href="historique.html" class="flex px-4 py-3 hover:bg-blue-400"><i class="fa-solid fa-clock w-6"></i> Historique</a>
+      <a href="statistiques.html" class="flex px-4 py-3 hover:bg-blue-400"><i class="fa-solid fa-chart-pie w-6"></i> Statistiques</a>
+    </nav>
+  </aside>
+
+  <div class="flex flex-col w-full">
+    <header class="flex p-4 bg-blue-600 dark:bg-gray-800 justify-between items-center">
+      <h1 class="text-white font-bold text-2xl">Marquer Présence</h1>
+     <button onclick="darkmode()" id="darkToggle"
+  class="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-200 px-3 py-2 md:px-5 md:py-2.5 rounded-lg font-medium text-sm md:text-base hover:bg-gray-200 dark:hover:bg-gray-600 transition flex items-center gap-2">
+  <i class="fa-solid fa-moon"></i>
+  <span class="hidden sm:inline">Dark Mode</span>
+</button>
+    </header>
+
+    <main class="p-6 overflow-y-auto">
+      <div class="mb-4">
+        <input type="date" id="dateInput" class="px-4 py-2 rounded border">
       </div>
-      <nav class="flex-1 p-4 space-y-2">
-        <a href="home.html"
-          class="w-full text-left py-3 px-4 rounded-lg bg-blue-900 hover:bg-blue-400 transition duration-300 flex items-conter">
-          <i class="fa-solid fa-home w-6"></i>
-          Home
-        </a>
 
-        <a href="apprenants.html"
-          class="w-full text-left py-3 px-4 rounded-lg hover:bg-blue-400 transition duration-300 flex items-conter">
-          <i class="fa-solid fa-users w-6"></i>
-          Apprenants
-        </a>
+      <table class="min-w-full bg-white dark:bg-gray-800 rounded">
+        <thead class="border-b">
+          <tr>
+            <th class="px-4 py-2">ID</th>
+            <th>Apprenant</th>
+            <th>Groupe</th>
+            <th>Statut</th>
+            <th>Heure</th>
+            <th>Motif</th>
+          </tr>
+        </thead>
+        <tbody id="presenceTableBody"></tbody>
+      </table>
+    </main>
+  </div>
+</div>
 
-        <a href="Presence.html"
-          class="w-full text-left py-3 px-4 rounded-lg hover:bg-blue-400 transition duration-300 flex items-conter">
-          <i class="fa-solid fa-check-to-slot w-6"></i>
-          Marquer Presence
-        </a>
-
-        <a href="historique.html"
-          class="w-full text-left py-3 px-4 rounded-lg hover:bg-blue-400 transition duration-300 flex items-conter">
-          <i class="fa-solid fa-clock w-6"></i>
-          Historique
-        </a>
-        <a href="statistiques.html"
-          class="w-full text-left py-3 px-4 rounded-lg hover:bg-blue-400 transition duration-300 flex items-conter">
-          <i class="fa-solid fa-chart-pie w-6"></i>
-          Statistiques
-        </a>
-      </nav>
-    </aside>
-    <div class="flex flex-col w-full">
-      <main class="flex p-4 bg-blue-600 dark:bg-gray-800 h-[80px] w-full justify-between items-center overflow-auto">
-        <h1 class="text-white text-left font-extrabold text-2xl text-lg h-fit">
-          Marquer Presence
-        </h1>
-        <button onclick="darkmode()" id="darkToggle"
-          class="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-200 px-3 py-2 md:px-5 md:py-2.5 rounded-lg font-medium text-sm md:text-base hover:bg-gray-200 dark:hover:bg-gray-600 transition flex items-center gap-2">
-          <i class="fa-solid fa-moon"></i>
-          <span class="hidden sm:inline">Dark Mode</span>
-        </button>
-      </main>
-            <div class="p-6 overflow-y-auto h-full">
-                <div class="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 mb-6 flex justify-between">
-                    <div class="flex items-center gap-3">
-                        <i class="fa-regular fa-calendar-days text-xl text-blue-600 dark:text-blue-300"></i>
-                        <input type="date" id="dateInput" class="bg-transparent text-gray-700 dark:text-white font-bold outline-none cursor-pointer">
-                    </div>
-                </div>
-
-                <div class="overflow-x-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700">
-                    <table class="min-w-full text-left text-sm whitespace-nowrap">
-                        <thead class="bg-gray-50 dark:bg-gray-700/50 border-b border-gray-200 dark:border-gray-700 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">
-                            <tr>
-                                <th class="px-6 py-4">ID</th>
-                                <th class="px-6 py-4">Apprenant</th>
-                                <th class="px-6 py-4 text-center">Statut</th>
-                                <th class="px-6 py-4">Heure</th>
-                                <th class="px-6 py-4">Motif</th>
-                            </tr>
-                        </thead>
-                        <tbody id="presenceTableBody" class="divide-y divide-gray-100 dark:divide-gray-700 text-gray-600 dark:text-gray-300">
-                            </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="script.js"></script> <script src="presence.js"></script> </body>
+<script src="presence.js"></script>
+<script src="script.js"></script>
+</body>
 </html>

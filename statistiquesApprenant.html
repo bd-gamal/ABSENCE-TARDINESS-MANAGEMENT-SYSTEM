@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistiques Personnel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 font-sans">
+
+<div class="flex h-screen">
+    <aside class="w-64 bg-white border-r hidden md:block">
+        <div class="h-16 flex items-center justify-center border-b font-bold text-blue-600 text-xl">ENAA Student</div>
+        <nav class="mt-6">
+            <a href="dashboard.html" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50"><i class="fas fa-home w-6"></i> Dashboard</a>
+            <a href="profil.html" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50"><i class="fas fa-user w-6"></i> Profil</a>
+            <a href="historiqueApprenant.html" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50"><i class="fas fa-history w-6"></i> Historique</a>
+            <a href="statistiquesApprenant.html" class="flex items-center px-6 py-3 bg-blue-50 text-blue-600 border-r-4 border-blue-600"><i class="fas fa-chart-pie w-6"></i> Statistiques</a>
+        </nav>
+    </aside>
+
+    <div class="flex-1 flex flex-col h-screen overflow-hidden">
+        <header class="h-16 bg-white border-b flex items-center justify-between px-8">
+            <h2 class="text-lg font-semibold">Statistiques Personnel</h2>
+            <div class="font-medium text-sm" id="user-display-name">Étudiant</div>
+        </header>
+
+        <main class="p-8 overflow-y-auto space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded shadow p-6">
+                    <h3 class="text-gray-500 font-semibold">Total Absences</h3>
+                    <p id="totalAbsences" class="text-2xl font-bold mt-2 text-red-600">0</p>
+                </div>
+                <div class="bg-white rounded shadow p-6">
+                    <h3 class="text-gray-500 font-semibold">Total Retards</h3>
+                    <p id="totalRetards" class="text-2xl font-bold mt-2 text-orange-600">0</p>
+                </div>
+                <div class="bg-white rounded shadow p-6">
+                    <h3 class="text-gray-500 font-semibold">Total Jours</h3>
+                    <p id="totalDays" class="text-2xl font-bold mt-2 text-green-600">0</p>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<script src="statistiquesApprenant.js"></script>
+</body>
+</html>

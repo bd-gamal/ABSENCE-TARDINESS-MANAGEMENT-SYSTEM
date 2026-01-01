@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historique Personnel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 font-sans">
+
+<div class="flex h-screen">
+    <aside class="w-64 bg-white border-r hidden md:block">
+        <div class="h-16 flex items-center justify-center border-b font-bold text-blue-600 text-xl">ENAA Student</div>
+        <nav class="mt-6">
+            <a href="dashboard.html" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50"><i class="fas fa-home w-6"></i> Dashboard</a>
+            <a href="profil.html" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50"><i class="fas fa-user w-6"></i> Profil</a>
+            <a href="historiqueApprenant.html" class="flex items-center px-6 py-3 bg-blue-50 text-blue-600 border-r-4 border-blue-600"><i class="fas fa-history w-6"></i> Historique</a>
+            <a href="statistiquesApprenant.html" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50"><i class="fas fa-chart-pie w-6"></i> Statistiques</a>
+        </nav>
+    </aside>
+
+    <div class="flex-1 flex flex-col h-screen overflow-hidden">
+        <header class="h-16 bg-white border-b flex items-center justify-between px-8">
+            <h2 class="text-lg font-semibold">Historique Personnel</h2>
+            <div class="font-medium text-sm" id="user-display-name">Étudiant</div>
+        </header>
+
+        <main class="p-8 overflow-y-auto">
+            <div class="bg-white rounded shadow border">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statut</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Heure</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Motif</th>
+                        </tr>
+                    </thead>
+                    <tbody id="history-tbody" class="bg-white divide-y divide-gray-200"></tbody>
+                </table>
+                <div id="empty-msg" class="hidden p-8 text-center text-gray-500">
+                    Aucune donnée trouvée.
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<script src="historiqueApprenant.js"></script>
+</body>
+</html>

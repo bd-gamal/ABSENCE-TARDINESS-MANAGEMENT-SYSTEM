@@ -1,14 +1,17 @@
+
 ["apprenantsData", "attendanceData"].forEach((k) => {
   const v = localStorage.getItem(k);
-  if (v === "undefined" || v === "null" || v === "") localStorage.removeItem(k);
+  if (!v || v === "undefined" || v === "null") {
+    localStorage.removeItem(k);
+  }
 });
 
-function readJSON(key, fallback) {
+
+function readJSON(key, fallback = []) {
   const raw = localStorage.getItem(key);
-  if (!raw || raw === "undefined" || raw === "null") return fallback;
+  if (!raw) return fallback;
   try {
-    const parsed = JSON.parse(raw);
-    return parsed ?? fallback;
+    return JSON.parse(raw);
   } catch {
     return fallback;
   }
@@ -34,149 +37,27 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-function gererAjoutOuModification(e) {
-  e.preventDefault();
-
-  const nomEl = document.getElementById("nom");
-  const prenomEl = document.getElementById("prenom");
-  const emailEl = document.getElementById("email");
-  const groupeEl = document.getElementById("groupe");
-
-  const nom = (nomEl?.value || "").trim();
-  const prenom = (prenomEl?.value || "").trim();
-  const email = (emailEl?.value || "").trim();
-  const groupe = (groupeEl?.value || "").trim();
-
-  if (!nom || !prenom || !groupe) {
-    alert("Veuillez remplir tous les champs obligatoires (Nom, Prénom, Groupe).");
-    return;
-  }
-
-  let apprenants = readJSON("apprenantsData", []);
-  if (!Array.isArray(apprenants)) apprenants = [];
-
-  if (idModification !== null) {
-    const index = apprenants.findIndex((a) => String(a.id) === String(idModification));
-    if (index !== -1) {
-      apprenants[index] = { id: apprenants[index].id, nom, prenom, email, groupe };
-    }
-    idModification = null;
-  } else {
-    let nouvelId = 1;
-    if (apprenants.length > 0) {
-      const ids = apprenants.map((a) => Number(a.id)).filter((n) => Number.isFinite(n));
-      nouvelId = ids.length ? Math.max(...ids) + 1 : 1;
-    }
-
-    apprenants.push({ id: nouvelId, nom, prenom, email, groupe });
-  }
-
-  writeJSON("apprenantsData", apprenants);
-  afficherTableauApprenants();
-
-  const form = document.getElementById("studentForm");
-  if (form) form.reset();
-
-  const modal = document.getElementById("modal");
-  if (modal) modal.classList.add("hidden");
-}
-
-function afficherTableauApprenants() {
-  const tableBody = document.getElementById("tableBody");
-  if (!tableBody) return;
-
-  let apprenants = readJSON("apprenantsData", []);
-  if (!Array.isArray(apprenants)) apprenants = [];
-
-  tableBody.innerHTML = "";
-
-  if (apprenants.length === 0) {
-    tableBody.innerHTML = `<tr><td colspan="5" class="text-center py-6 text-gray-500">Aucun apprenant enregistré.</td></tr>`;
-    return;
-  }
-
-  apprenants.forEach((apprenant) => {
-    const id = apprenant?.id ?? "";
-    const nom = apprenant?.nom ?? "";
-    const prenom = apprenant?.prenom ?? "";
-    const groupe = apprenant?.groupe ?? "";
-
-    tableBody.innerHTML += `
-      <tr class="border-b hover:bg-gray-50 transition dark:border-gray-700 dark:hover:bg-gray-600 dark:text-gray-300">
-        <td class="px-6 py-4 font-medium">${id}</td>
-        <td class="px-6 py-4">${nom}</td>
-        <td class="px-6 py-4">${prenom}</td>
-        <td class="px-6 py-4 text-center">${groupe}</td>
-        <td class="px-6 py-4 flex items-center">
-          <button onclick="preparerModification('${String(id).replace(/'/g, "\\'")}')" class="text-blue-500 hover:text-blue-700 mx-2 p-2 hover:bg-blue-100 rounded-full transition" title="Modifier">
-            <i class="fa-solid fa-pen-to-square"></i>
-          </button>
-          <button onclick="supprimerApprenant('${String(id).replace(/'/g, "\\'")}')" class="text-red-500 hover:text-red-700 mx-2 p-2 hover:bg-red-100 rounded-full transition" title="Supprimer">
-            <i class="fa-solid fa-trash"></i>
-          </button>
-        </td>
-      </tr>
-    `;
-  });
-}
-
-function preparerModification(id) {
-  let apprenants = readJSON("apprenantsData", []);
-  if (!Array.isArray(apprenants)) apprenants = [];
-
-  const apprenant = apprenants.find((a) => String(a.id) === String(id));
-  if (!apprenant) return;
-
-  const nomEl = document.getElementById("nom");
-  const prenomEl = document.getElementById("prenom");
-  const emailEl = document.getElementById("email");
-  const groupeEl = document.getElementById("groupe");
-
-  if (nomEl) nomEl.value = apprenant.nom || "";
-  if (prenomEl) prenomEl.value = apprenant.prenom || "";
-  if (emailEl) emailEl.value = apprenant.email || "";
-  if (groupeEl) groupeEl.value = apprenant.groupe || "";
-
-  idModification = apprenant.id;
-
-  const modal = document.getElementById("modal");
-  if (modal) modal.classList.remove("hidden");
-}
-
-function supprimerApprenant(id) {
-  if (!confirm("Êtes-vous sûr de vouloir supprimer cet apprenant ?")) return;
-
-  let apprenants = readJSON("apprenantsData", []);
-  if (!Array.isArray(apprenants)) apprenants = [];
-
-  apprenants = apprenants.filter((a) => String(a.id) !== String(id));
-  writeJSON("apprenantsData", apprenants);
-  afficherTableauApprenants();
-}
 
 function gérerNavigationActive() {
-  const currentPage =
-    window.location.pathname.split("/").pop().toLowerCase() || "home.html";
-
+  const path = window.location.pathname.split("/").pop().toLowerCase();
   document.querySelectorAll("aside nav a").forEach((link) => {
-    const linkPage = (link.getAttribute("href") || "").toLowerCase();
+    const href = (link.getAttribute("href") || "").toLowerCase();
     link.classList.remove("bg-blue-900", "dark:bg-gray-700");
-    if (linkPage === currentPage) {
+    if (href === path) {
       link.classList.add("bg-blue-900", "dark:bg-gray-700");
     }
   });
 }
 
-function applyTheme() {
-  const html = document.documentElement;
-  const isDark = localStorage.getItem("theme") === "dark";
 
-  html.classList.toggle("dark", isDark);
+function applyTheme() {
+  const isDark = localStorage.getItem("theme") === "dark";
+  document.documentElement.classList.toggle("dark", isDark);
 
   const icon = document.querySelector("#darkToggle i");
-  const label = document.querySelector("#darkToggle span");
-  if (icon) icon.className = isDark ? "fa-solid fa-sun" : "fa-solid fa-moon";
-  if (label) label.textContent = isDark ? "Light Mode" : "Dark Mode";
+  if (icon) {
+    icon.className = isDark ? "fa-solid fa-sun" : "fa-solid fa-moon";
+  }
 }
 
 function darkmode() {
@@ -186,3 +67,104 @@ function darkmode() {
 }
 
 
+function afficherTableauApprenants() {
+  const body = document.getElementById("tableBody");
+  if (!body) return;
+
+  const apprenants = readJSON("apprenantsData", []);
+
+  body.innerHTML = "";
+
+  if (apprenants.length === 0) {
+    body.innerHTML = `
+      <tr>
+        <td colspan="5" class="text-center py-6 text-gray-500 dark:text-gray-400">
+          Aucun apprenant trouvé.
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  apprenants.forEach((a) => {
+    body.innerHTML += `
+      <tr class="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 transition">
+        <td class="px-6 py-4">${a.id}</td>
+        <td class="px-6 py-4">${a.nom}</td>
+        <td class="px-6 py-4">${a.prenom}</td>
+        <td class="px-6 py-4 text-center">${a.groupe}</td>
+        <td class="px-6 py-4">
+          <button onclick="preparerModification(${a.id})" class="text-blue-500 mr-2">
+            <i class="fa-solid fa-pen"></i>
+          </button>
+          <button onclick="supprimerApprenant(${a.id})" class="text-red-500">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    `;
+  });
+}
+
+
+function gererAjoutOuModification(e) {
+  e.preventDefault();
+
+  const nom = document.getElementById("nom").value.trim();
+  const prenom = document.getElementById("prenom").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const groupe = document.getElementById("groupe").value.trim();
+
+  if (!nom || !prenom || !email || !groupe) {
+    alert("Veuillez remplir tous les champs !");
+    return;
+  }
+
+  let list = readJSON("apprenantsData", []);
+
+  if (idModification) {
+    const idx = list.findIndex((a) => a.id === idModification);
+    if (idx !== -1) {
+      list[idx] = { ...list[idx], nom, prenom, email, groupe };
+    }
+    idModification = null;
+  } else {
+    const newId = list.length ? Math.max(...list.map((a) => a.id)) + 1 : 1;
+    list.push({ id: newId, nom, prenom, email, groupe });
+  }
+
+  writeJSON("apprenantsData", list);
+
+  document.getElementById("modal").classList.add("hidden");
+  document.getElementById("studentForm").reset();
+
+  afficherTableauApprenants();
+}
+
+
+function supprimerApprenant(id) {
+  if (!confirm("Supprimer cet apprenant ?")) return;
+
+  let list = readJSON("apprenantsData", []);
+  list = list.filter((a) => a.id !== id);
+  writeJSON("apprenantsData", list);
+
+  let attendance = readJSON("attendanceData", []);
+  attendance = attendance.filter((d) => d.id != id);
+  writeJSON("attendanceData", attendance);
+
+  afficherTableauApprenants();
+}
+
+
+function preparerModification(id) {
+  const a = readJSON("apprenantsData", []).find((x) => x.id === id);
+  if (!a) return;
+
+  idModification = id;
+  document.getElementById("nom").value = a.nom;
+  document.getElementById("prenom").value = a.prenom;
+  document.getElementById("email").value = a.email;
+  document.getElementById("groupe").value = a.groupe;
+  document.getElementById("modal").classList.remove("hidden");
+}
