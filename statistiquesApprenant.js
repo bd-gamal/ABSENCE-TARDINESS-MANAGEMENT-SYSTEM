@@ -1,15 +1,15 @@
-// Ensure currentUser
+
 if(!localStorage.getItem("currentUser")) localStorage.setItem("currentUser", "1");
 const currentUserId = localStorage.getItem("currentUser");
 
-// Load users
+
 const apprenants = JSON.parse(localStorage.getItem("apprenantsData")) || [];
 const userDetails = apprenants.find(a => String(a.id) === String(currentUserId));
 if(userDetails) {
     document.getElementById("user-display-name").textContent = `${userDetails.nom || ''} ${userDetails.prenom || ''}`;
 }
 
-// Load attendance
+
 const rawAttendance = JSON.parse(localStorage.getItem("attendanceData")) || [];
 
 const userRecords = rawAttendance.filter(r => String(r.id) === String(currentUserId));

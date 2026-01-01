@@ -1,18 +1,18 @@
-// Ensure a current user exists
+
 if(!localStorage.getItem("currentUser")) localStorage.setItem("currentUser", "1");
 const currentUserId = localStorage.getItem("currentUser");
 
-// Load users
+
 const apprenants = JSON.parse(localStorage.getItem("apprenantsData")) || [];
 const userDetails = apprenants.find(a => String(a.id) === String(currentUserId));
 if(userDetails) {
     document.getElementById("user-display-name").textContent = `${userDetails.nom || ''} ${userDetails.prenom || ''}`;
 }
 
-// Load attendance
+
 const rawAttendance = JSON.parse(localStorage.getItem("attendanceData")) || [];
 
-// Map status
+
 function normalizeStatus(status) {
     if (!status) return "Présent";
     if (status.toLowerCase() === "absent") return "Absent";
@@ -20,7 +20,7 @@ function normalizeStatus(status) {
     return "Présent";
 }
 
-// Filter for current user
+
 const userHistory = rawAttendance
     .filter(record => String(record.id) === String(currentUserId))
     .map(record => ({
@@ -30,7 +30,7 @@ const userHistory = rawAttendance
         motif: record.motif || "-"
     }));
 
-// Render table
+
 const tbody = document.getElementById("history-tbody");
 const emptyMsg = document.getElementById("empty-msg");
 
