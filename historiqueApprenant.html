@@ -9,201 +9,44 @@
 </head>
 <body class="bg-gray-50 font-sans">
 
-    <div class="flex h-screen">
-        
-        <aside class="w-64 bg-white border-r hidden md:block">
-            <div class="h-16 flex items-center justify-center border-b font-bold text-blue-600 text-xl">ENAA Student</div>
-            <nav class="mt-6">
-                <a href="dashboard.html" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50"><i class="fas fa-home w-6"></i> Dashboard</a>
-                <a href="profil.html" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50"><i class="fas fa-user w-6"></i> Profil</a>
-                <a href="historiqueApprenant.html" class="flex items-center px-6 py-3 bg-blue-50 text-blue-600 border-r-4 border-blue-600"><i class="fas fa-history w-6"></i> Historique</a>
-                <a href="statistiquesAprenants.html" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50"><i class="fas fa-chart-pie w-6"></i> Statistiques</a>
-            </nav>
-        </aside>
+<div class="flex h-screen">
+    <aside class="w-64 bg-white border-r hidden md:block">
+        <div class="h-16 flex items-center justify-center border-b font-bold text-blue-600 text-xl">ENAA Student</div>
+        <nav class="mt-6">
+            <a href="dashboard.html" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50"><i class="fas fa-home w-6"></i> Dashboard</a>
+            <a href="profil.html" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50"><i class="fas fa-user w-6"></i> Profil</a>
+            <a href="historiqueApprenant.html" class="flex items-center px-6 py-3 bg-blue-50 text-blue-600 border-r-4 border-blue-600"><i class="fas fa-history w-6"></i> Historique</a>
+            <a href="statistiquesApprenant.html" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50"><i class="fas fa-chart-pie w-6"></i> Statistiques</a>
+        </nav>
+    </aside>
 
-        <div class="flex-1 flex flex-col h-screen overflow-hidden">
-            <header class="h-16 bg-white border-b flex items-center justify-between px-8">
-                <h2 class="text-lg font-semibold">Historique Personnel</h2>
-                <div class="font-medium text-sm" id="user-display-name">Étudiant</div>
-            </header>
+    <div class="flex-1 flex flex-col h-screen overflow-hidden">
+        <header class="h-16 bg-white border-b flex items-center justify-between px-8">
+            <h2 class="text-lg font-semibold">Historique Personnel</h2>
+            <div class="font-medium text-sm" id="user-display-name">Étudiant</div>
+        </header>
 
-            <main class="p-8 overflow-y-auto">
-                <div class="bg-white rounded shadow border">
-                    
-                    <div class="p-4 border-b bg-gray-50 flex flex-wrap gap-4 justify-end">
-                        <select id="filter-mois" class="border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
-                            <option value="all">Tous les mois</option>
-                            <option value="12">Décembre</option>
-                            <option value="11">Novembre</option>
-                            <option value="10">Octobre</option>
-                            <option value="09">Septembre</option>
-                        </select>
-
-                        <select id="filter-statut" class="border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-blue-500">
-                            <option value="all">Tous les status</option>
-                            <option value="Present">Présent</option>
-                            <option value="Retard">En retard</option>
-                            <option value="Absent">Absent</option>
-                        </select>
-                    </div>
-
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-100">
-                            <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statut</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Heure</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Motif</th>
-                            </tr>
-                        </thead>
-                        <tbody id="history-tbody" class="bg-white divide-y divide-gray-200">
-                            </tbody>
-                    </table>
-                    
-                    <div id="empty-msg" class="hidden p-8 text-center text-gray-500">
-                        Aucune donnée trouvée pour ces filtres.
-                    </div>
-                </div>
-            </main>
-        </div>
-    </div>
-
-    <div id="motif-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden items-center justify-center z-50">
-        <div class="bg-white rounded-lg shadow-lg w-1/3 p-6">
-            <div class="flex justify-between items-center border-b pb-3 mb-4">
-                <h3 class="text-xl font-bold text-gray-800">Détail du motif</h3>
-                <button onclick="closeModal()" class="text-gray-400 hover:text-red-500">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="space-y-4">
-                <p class="text-sm text-gray-500">Raison déclarée :</p>
-                <div class="bg-gray-50 p-4 rounded border text-gray-800 italic" id="modal-content"></div>
-            </div>
-            <div class="mt-6 flex justify-end">
-                <button onclick="closeModal()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Fermer</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-
-        if(!localStorage.getItem("currentUser")) {
-            localStorage.setItem("currentUser", "1"); 
-        }
-
-        const currentUserId = localStorage.getItem("currentUser");
-
-        const apprenants = JSON.parse(localStorage.getItem("apprenantsData")) || [];
-        const userDetails = apprenants.find(a => String(a.id) === String(currentUserId));
-        if(userDetails) {
-            document.getElementById("user-display-name").textContent = `${userDetails.nom || ''} ${userDetails.prenom || ''}`;
-        }
-
-        const rawAttendance = JSON.parse(localStorage.getItem("attendanceData")) || [];
-
-        function normalizeStatus(adminStatus) {
-            if (!adminStatus) return "Present";
-            const s = adminStatus.toLowerCase();
-            if (s === 'late') return 'Retard';
-            if (s === 'absent') return 'Absent';
-            return 'Present';
-        }
-
-        const historyData = rawAttendance
-            .filter(record => String(record.id) === String(currentUserId))
-            .map(record => {
-                return {
-                    date: record.date || new Date().toISOString().split('T')[0], 
-                    statut: normalizeStatus(record.status),
-                    heureArrivee: record.time || "-",
-                    motif: record.motif || ""
-                };
-            });
-
-        const tbody = document.getElementById("history-tbody");
-        const emptyMsg = document.getElementById("empty-msg");
-        const modal = document.getElementById("motif-modal");
-        
-        function renderHistory() {
-            const moisFilter = document.getElementById("filter-mois").value;
-            const statutFilter = document.getElementById("filter-statut").value;
-
-            tbody.innerHTML = "";
-            let count = 0;
-
-            const sortedData = historyData.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-            sortedData.forEach(item => {
-                const itemDate = new Date(item.date);
-                const itemMonth = (itemDate.getMonth() + 1).toString().padStart(2, '0');
-
-                const matchMois = (moisFilter === "all") || (itemMonth == moisFilter);
-                const matchStatut = (statutFilter === "all") || (item.statut === statutFilter);
-
-                if (matchMois && matchStatut) {
-                    count++;
-                    
-                    let badgeColor = "bg-gray-100 text-gray-800";
-                    if(item.statut === 'Present') badgeColor = "bg-green-100 text-green-800";
-                    if(item.statut === 'Retard') badgeColor = "bg-orange-100 text-orange-800";
-                    if(item.statut === 'Absent') badgeColor = "bg-red-100 text-red-800";
-
-                    let motifHtml = `<span class="text-gray-400">-</span>`;
-                    if (item.motif && item.motif.trim() !== "") {
-                        motifHtml = `
-                            <button onclick="openModal('${encodeURIComponent(item.motif)}')" class="text-blue-600 hover:text-blue-800 font-medium text-xs border border-blue-200 bg-blue-50 px-2 py-1 rounded">
-                                <i class="far fa-eye"></i> Voir motif
-                            </button>
-                        `;
-                    }
-
-                    const row = `
-                        <tr class="hover:bg-gray-50 transition">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${item.date}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${badgeColor}">
-                                    ${item.statut}
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${item.heureArrivee}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                ${motifHtml}
-                            </td>
+        <main class="p-8 overflow-y-auto">
+            <div class="bg-white rounded shadow border">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statut</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Heure</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Motif</th>
                         </tr>
-                    `;
-                    tbody.innerHTML += row;
-                }
-            });
+                    </thead>
+                    <tbody id="history-tbody" class="bg-white divide-y divide-gray-200"></tbody>
+                </table>
+                <div id="empty-msg" class="hidden p-8 text-center text-gray-500">
+                    Aucune donnée trouvée.
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
 
-            if (count === 0) {
-                emptyMsg.classList.remove("hidden");
-            } else {
-                emptyMsg.classList.add("hidden");
-            }
-        }
-
-        function openModal(motifEncoded) {
-            const motif = decodeURIComponent(motifEncoded);
-            document.getElementById("modal-content").textContent = motif;
-            modal.classList.remove("hidden");
-            modal.classList.add("flex");
-        }
-
-        function closeModal() {
-            modal.classList.remove("flex");
-            modal.classList.add("hidden");
-        }
-
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) closeModal();
-        });
-
-        document.getElementById("filter-mois").addEventListener("change", renderHistory);
-        document.getElementById("filter-statut").addEventListener("change", renderHistory);
-
-        renderHistory();
-
-    </script>
+<script src="historiqueApprenant.js"></script>
 </body>
 </html>

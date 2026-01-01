@@ -1,12 +1,43 @@
-function activepage(){
-    const currentpage = window.location.pathname.split("/").pop() || "dashboard.html";
-    document.querySelectorAll("aside nav a").forEach((link) => {
-        const linkpage = (link.getAttribute("href")|| "");
-        link.classList.remove("bg-blue-50", "text-blue-600","border-r-4", "border-blue-600")
-        if (linkpage === currentpage){
-            link.classList.add("bg-blue-50", "text-blue-600","border-r-4", "border-blue-600")
-            
+document.addEventListener("DOMContentLoaded", () => {
+    const activeStudent = getActiveStudent(); 
+    if (activeStudent) {
+        updateDashboardUI(activeStudent);
+    }
+});
+
+function getActiveStudent() {
+    const allStudents = readJSON("apprenantsData", []);
+    return allStudents[0] || null;
+}
+
+function updateDashboardUI(student) {
+    const history = readJSON("attendanceHistory", {});
+    const dates = Object.keys(history);
+
+    let myAbsences = 0;
+    let myLates = 0;
+
+    dates.forEach(date => {
+        const myRecord = history[date].find(r => r.id == student.id);
+        if (myRecord) {
+            if (myRecord.status === "absent") myAbsences++;
+            if (myRecord.status === "late") myLates++;
         }
     });
+
+    
+    const nameDisplay = document.getElementById("header-user-name");
+    if (nameDisplay) nameDisplay.textContent = `${student.nom} ${student.prenom}`;
+
+    
+    const profileName = document.querySelector("h2.text-2xl.font-bold");
+    if (profileName) profileName.textContent = `${student.nom} ${student.prenom}`;
+
+   
+    const inputs = document.querySelectorAll("input[type='text'], input[type='email']");
+    if (inputs.length > 0) {
+        inputs[0].value = student.nom || "";
+        inputs[1].value = student.prenom || "";
+        inputs[2].value = student.email || "";
+    }
 }
-activepage()

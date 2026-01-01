@@ -1,67 +1,76 @@
+function applyTheme() {
+    const isDark = localStorage.getItem("theme") === "dark";
+    document.documentElement.classList.toggle("dark", isDark);
+    const icon = document.querySelector("#darkToggle i");
+    if (icon) icon.className = isDark ? "fa-solid fa-sun" : "fa-solid fa-moon";
+}
+
+function toggleDarkMode() {
+    const isDark = document.documentElement.classList.toggle("dark");
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+    applyTheme();
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+    
+    applyTheme();
 
-  const apprenants = JSON.parse(localStorage.getItem("apprenantsData")) || [];
-  const attendanceData = JSON.parse(localStorage.getItem("attendanceData")) || [];
+    
+    const darkBtn = document.getElementById("darkToggle");
+    if (darkBtn) darkBtn.addEventListener("click", toggleDarkMode);
 
-  const historiqueData = document.getElementById("historiqueData");
-  const listDetails = document.getElementById("detailsabsences");
-  const absentes = document.getElementById("detailsretards");
+    const table = document.getElementById("historiqueData");
+    const absList = document.getElementById("detailsabsences");
+    const retList = document.getElementById("detailsretards");
 
-  if (attendanceData.length === 0) {
-    historiqueData.innerHTML = `
-      <tr><td colspan="4" class="text-center text-gray-500 py-4">Aucune donnée disponible</td></tr>
-    `;
-    return;
-  }
+    const attendanceData = JSON.parse(localStorage.getItem("attendanceData")) || [];
+    const apprenants = JSON.parse(localStorage.getItem("apprenantsData")) || [];
 
   
-  const groupedByDate = {};
-  attendanceData.forEach(r => {
-    if (!groupedByDate[r.date]) groupedByDate[r.date] = [];
-    groupedByDate[r.date].push(r);
-  });
+    const byDate = {};
+    attendanceData.forEach(r => {
+        if (!r.date) return;
+        if (!byDate[r.date]) byDate[r.date] = { absents: [], retards: [] };
+        const student = apprenants.find(a => a.id == r.id);
+        const name = student ? `${student.nom} ${student.prenom}` : "Inconnu";
 
-  Object.keys(groupedByDate).forEach(date => {
-    const records = groupedByDate[date];
-    let absenteNum = 0, retardNum = 0;
-
-    records.forEach(r => {
-      if (r.status === "absent") absenteNum++;
-      if (r.status === "late") retardNum++;
+        if (r.status === "absent") byDate[r.date].absents.push(name);
+        if (r.status === "late") byDate[r.date].retards.push(name);
     });
 
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${date}</td>
-      <td class="text-center">${absenteNum}</td>
-      <td class="text-center">${retardNum}</td>
-      <td><button class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600">Détails</button></td>
-    `;
+    
+    table.innerHTML = "";
+    if (!Object.keys(byDate).length) {
+        table.innerHTML = `<tr><td colspan="4" class="text-center py-4">Aucune donnée</td></tr>`;
+    } else {
+        Object.keys(byDate).forEach(date => {
+            const tr = document.createElement("tr");
+            tr.className = "hover:bg-gray-50 dark:hover:bg-gray-600 transition";
 
-    const button = tr.querySelector("button");
-    historiqueData.appendChild(tr);
+            tr.innerHTML = `
+                <td class="px-6 py-3">${date}</td>
+                <td class="px-6 py-3 text-center">${byDate[date].absents.length}</td>
+                <td class="px-6 py-3 text-center">${byDate[date].retards.length}</td>
+                <td class="px-6 py-3">
+                  <button class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+                          onclick="showDetails('${date}')">
+                    Détails
+                  </button>
+                </td>
+            `;
+            table.appendChild(tr);
+        });
+    }
 
-    button.addEventListener("click", () => {
-      listDetails.innerHTML = "";
-      absentes.innerHTML = "";
+    
+    window.showDetails = function(date) {
+        if (!byDate[date]) return;
+        absList.innerHTML = byDate[date].absents.length
+            ? byDate[date].absents.map(n => `<li>${n}</li>`).join("")
+            : "<li>Aucune absence</li>";
 
-      records.forEach(r => {
-        const apprenant = apprenants.find(a => a.id == r.id);
-        const name = apprenant ? `${apprenant.nom} ${apprenant.prenom} (${apprenant.groupe})` : `ID: ${r.id}`;
-        
-        if (r.status === "absent") {
-          const li = document.createElement("li");
-          li.textContent = `${name} - Absent - Motif: ${r.motif || "-"}`;
-          listDetails.appendChild(li);
-        }
-
-        if (r.status === "late") {
-          const li = document.createElement("li");
-          li.textContent = `${name} - Retard - Heure: ${r.time || "--"} - Motif: ${r.motif || "-"}`;
-          absentes.appendChild(li);
-        }
-      });
-    });
-  });
-
+        retList.innerHTML = byDate[date].retards.length
+            ? byDate[date].retards.map(n => `<li>${n}</li>`).join("")
+            : "<li>Aucun retard</li>";
+    };
 });
