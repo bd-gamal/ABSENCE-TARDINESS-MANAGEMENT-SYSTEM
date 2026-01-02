@@ -11,19 +11,65 @@
 <body class="bg-gray-100 dark:bg-gray-700 font-sans">
 
 <div class="flex h-screen">
-  <!-- Sidebar -->
-  <aside class="w-64 bg-blue-600 text-white flex flex-col hidden md:flex dark:bg-gray-800">
-    <div class="p-6 text-center"><h1 class="text-xl font-extrabold tracking-wide">MENA</h1></div>
-    <nav class="flex-1 p-4 space-y-2">
-      <a href="home.html" class="w-full text-left py-3 px-4 rounded-lg hover:bg-blue-400 flex items-center"><i class="fa-solid fa-home w-6"></i> Home</a>
-      <a href="apprenants.html" class="w-full text-left py-3 px-4 rounded-lg hover:bg-blue-600 flex items-center"><i class="fa-solid fa-users w-6"></i> Apprenants</a>
-      <a href="Presence.html" class="w-full text-left py-3 px-4 rounded-lg hover:bg-blue-400 flex items-center"><i class="fa-solid fa-check-to-slot w-6"></i> Marquer Presence</a>
-      <a href="historique.html" class="w-full text-left py-3 px-4 rounded-lg hover:bg-blue-400 flex items-center"><i class="fa-solid fa-clock w-6"></i> Historique</a>
-      <a href="statistiques.html" class="w-full text-left py-3 px-4 rounded-lg bg-blue-900 flex items-center"><i class="fa-solid fa-chart-pie w-6"></i> Statistiques</a>
-    </nav>
-  </aside>
+  
+      <aside class="w-64 bg-blue-600 text-white flex flex-col hidden md:flex dark:bg-gray-800">
+        <div class="p-6 text-center">
+          <h1 class="text-xl font-extrabold tracking-wide">ENAA </h1>
+             <p>Espace Administration</p>
+        </div>
+        <nav class="flex-1 p-4 space-y-2">
+          <a
+            href="home.html"
+            class="w-full text-left py-3 px-4 rounded-lg bg-blue-900 hover:bg-blue-400 transition duration-300 flex items-conter"
 
-  <!-- Main -->
+          >
+            <i class="fa-solid fa-home w-6"></i>
+            Home
+          </a>
+
+          <a
+          href="apprenants.html"
+            class="w-full text-left py-3 px-4 rounded-lg hover:bg-blue-400 transition duration-300 flex items-conter"
+
+          >
+            <i class="fa-solid fa-users w-6"></i>
+            Apprenants
+          </a>
+
+          <a
+          href="Presence.html"
+            class="w-full text-left py-3 px-4 rounded-lg hover:bg-blue-400 transition duration-300 flex items-conter"
+          >
+            <i class="fa-solid fa-check-to-slot w-6"></i>
+            Marquer Presence
+          </a>
+
+          <a
+          href="historique.html"
+            class="w-full text-left py-3 px-4 rounded-lg hover:bg-blue-400 transition duration-300 flex items-conter"
+          >
+            <i class="fa-solid fa-clock w-6"></i>
+            Historique
+          </a>
+          <a
+          href="statistiques.html"
+            class="w-full text-left py-3 px-4 rounded-lg hover:bg-blue-400 transition duration-300 flex items-conter"
+          >
+            <i class="fa-solid fa-chart-pie w-6"></i>
+            Statistiques
+          </a>
+           
+        </nav>
+         <a
+          href="login.html"
+            class="w-full text-left py-4 px-9 rounded-lg hover:bg-blue-400 transition duration-300 flex items-conter"
+          >
+            <i class="fa-solid fa-arrow-right-from-bracket w-6"></i>
+            Exit
+          </a>
+      </aside>
+
+ 
   <div class="flex flex-col w-full">
     <header class="flex p-4 bg-blue-600 dark:bg-gray-800 h-[80px] w-full justify-between items-center">
       <h1 class="text-white text-2xl font-extrabold">Statistiques</h1>
@@ -56,7 +102,7 @@
     </main>
   </div>
 </div>
-
+<script src="script.js"></script>
 <script src="statistiques.js"></script>
 </body>
 </html>
