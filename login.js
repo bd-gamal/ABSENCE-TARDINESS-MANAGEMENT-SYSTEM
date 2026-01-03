@@ -23,3 +23,14 @@ function verifyLogin() {
     alert("NOT FOUND");
   }
 }
+function verifyLoginF() {
+  const inputNomF = document.getElementById("nomF").value.trim();
+  const inputPrenomF = document.getElementById("prenomF").value.trim();
+  if (inputNomF === "admin" && inputPrenomF === "admin") {
+    alert("WELCOME ADMIN");
+    window.location.href = "home.html";
+  } else {
+    alert("NOT FOUND");
+  }
+
+}

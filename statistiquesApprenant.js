@@ -1,11 +1,11 @@
 
-if(!localStorage.getItem("currentUser")) localStorage.setItem("currentUser", "1");
+if (!localStorage.getItem("currentUser")) localStorage.setItem("currentUser", "1");
 const currentUserId = localStorage.getItem("currentUser");
 
 
 const apprenants = JSON.parse(localStorage.getItem("apprenantsData")) || [];
 const userDetails = apprenants.find(a => String(a.id) === String(currentUserId));
-if(userDetails) {
+if (userDetails) {
     document.getElementById("user-display-name").textContent = `${userDetails.nom || ''} ${userDetails.prenom || ''}`;
 }
 
@@ -19,8 +19,8 @@ const daysSet = new Set();
 
 userRecords.forEach(r => {
     daysSet.add(r.date);
-    if(r.status === "absent") totalAbs++;
-    if(r.status === "late") totalLate++;
+    if (r.status === "absent") totalAbs++;
+    if (r.status === "late") totalLate++;
 });
 
 document.getElementById("totalAbsences").textContent = totalAbs;

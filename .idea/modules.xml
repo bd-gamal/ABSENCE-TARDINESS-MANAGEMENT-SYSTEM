@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/ABSENCE-TARDINESS-MANAGEMENT-SYSTEM.iml" filepath="$PROJECT_DIR$/.idea/ABSENCE-TARDINESS-MANAGEMENT-SYSTEM.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/ttt.iml" filepath="$PROJECT_DIR$/.idea/ttt.iml" />
     </modules>
   </component>
 </project>

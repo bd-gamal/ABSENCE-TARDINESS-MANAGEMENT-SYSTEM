@@ -1,11 +1,11 @@
 
-if(!localStorage.getItem("currentUser")) localStorage.setItem("currentUser", "1");
+if (!localStorage.getItem("currentUser")) localStorage.setItem("currentUser", "1");
 const currentUserId = localStorage.getItem("currentUser");
 
 
 const apprenants = JSON.parse(localStorage.getItem("apprenantsData")) || [];
 const userDetails = apprenants.find(a => String(a.id) === String(currentUserId));
-if(userDetails) {
+if (userDetails) {
     document.getElementById("user-display-name").textContent = `${userDetails.nom || ''} ${userDetails.prenom || ''}`;
 }
 
@@ -34,10 +34,10 @@ const userHistory = rawAttendance
 const tbody = document.getElementById("history-tbody");
 const emptyMsg = document.getElementById("empty-msg");
 
-if(userHistory.length === 0) {
+if (userHistory.length === 0) {
     emptyMsg.classList.remove("hidden");
 } else {
-    userHistory.sort((a,b) => new Date(b.date) - new Date(a.date));
+    userHistory.sort((a, b) => new Date(b.date) - new Date(a.date));
     userHistory.forEach(item => {
         const row = `
         <tr class="hover:bg-gray-50 transition">
