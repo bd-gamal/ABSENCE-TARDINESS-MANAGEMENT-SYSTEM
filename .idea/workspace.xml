@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="3129ea39-6501-4b87-a137-60a7caa7a833" name="Changes" comment="" />
+    <list default="true" id="3129ea39-6501-4b87-a137-60a7caa7a833" name="Changes" comment="youssefjqnib">
+      <change beforePath="$PROJECT_DIR$/authentication.html" beforeDir="false" afterPath="$PROJECT_DIR$/authentication.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,6 +15,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Ik-Najib"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/bd-gamal/ABSENCE-TARDINESS-MANAGEMENT-SYSTEM",
+    "accountId": "ca287c4a-65c5-4716-ae43-f60a35b91d80"
+  }
+}]]></component>
   <component name="ProjectColorInfo"><![CDATA[{
   "customColor": "",
   "associatedIndex": 8
@@ -24,6 +41,7 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "NAJIB",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true"
@@ -44,6 +62,19 @@
       <option name="presentableId" value="Default" />
       <updated>1767198944715</updated>
     </task>
+    <task id="LOCAL-00001" summary="youssefjqnib">
+      <option name="closed" value="true" />
+      <created>1767199355015</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1767199355015</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="youssefjqnib" />
+    <option name="LAST_COMMIT_MESSAGE" value="youssefjqnib" />
   </component>
 </project>
