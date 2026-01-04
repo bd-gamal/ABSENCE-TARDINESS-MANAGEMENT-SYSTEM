@@ -23,3 +23,13 @@ function verifyLogin() {
     alert("NOT FOUND");
   }
 }
+function verifyLoginF() {
+   const inputNom = document.getElementById("nomF").value.trim();
+  const inputPrenom = document.getElementById("prenomF").value.trim();
+  if('admin' === inputNom.toLowerCase() && 'admin'=== inputPrenom.toLowerCase()){
+     alert("WELCOME");
+    window.location.href = "home.html";
+  } else {
+    alert("NOT FOUND");
+  }
+  }

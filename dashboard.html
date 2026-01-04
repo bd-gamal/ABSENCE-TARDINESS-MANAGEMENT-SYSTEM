@@ -10,49 +10,49 @@
 </head>
 <body class="bg-gray-50 font-sans">
 
-    <div class="flex h-screen">
-        
-        <aside class="w-64 bg-white border-r  flex flex-col hidden md:block">
-            <div class="h-16 flex items-center justify-center border-b font-bold text-blue-600 text-xl">MENA Student</div>
-            <nav class="mt-6">
-                <a href="dashboard.html" class="flex items-center px-6 py-3 bg-blue-50 text-blue-600 border-r-4 border-blue-600"><i class="fas fa-home w-6"></i> Dashboard</a>
-                <a href="profil.html" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50"><i class="fas fa-user w-6"></i> Profil</a>
-                <a href="historiqueApprenant.html" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50"><i class="fas fa-history w-6"></i> Historique</a>
-                <a href="statistiquesAprenants.html" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50"><i class="fas fa-chart-pie w-6"></i> Statistiques</a>
+<div class="flex h-screen">
 
-            </nav>
-          <a href="login.html" class="w-full h-screen flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50"><i class="fa-solid fa-arrow-right-from-bracket w-6"></i> Exit</a>
+    <aside class="w-64 bg-white border-r  flex flex-col hidden md:block">
+        <div class="h-16 flex items-center justify-center border-b font-bold text-blue-600 text-xl">ENAA Student</div>
+        <nav class="mt-6">
+            <a href="dashboard.html" class="flex items-center px-6 py-3 bg-blue-50 text-blue-600 border-r-4 border-blue-600"><i class="fas fa-home w-6"></i> Dashboard</a>
+            <a href="profil.html" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50"><i class="fas fa-user w-6"></i> Profil</a>
+            <a href="historiqueApprenant.html" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50"><i class="fas fa-history w-6"></i> Historique</a>
+            <a href="statistiquesAprenants.html" class="flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50"><i class="fas fa-chart-pie w-6"></i> Statistiques</a>
+
+        </nav>
+        <a href="login.html" class="w-full h-screen flex items-center px-6 py-3 text-gray-600 hover:bg-gray-50"><i class="fa-solid fa-arrow-right-from-bracket w-6"></i> Exit</a>
 
 
-        </aside>
+    </aside>
 
-        <div class="flex-1 h-screen overflow-hidden flex flex-col">
-    <header class="h-20 bg-white border-b flex justify-center items-center px-8 flex-shrink-0">
-        <h1 class="font-bold text-3xl">Youssef Ait Abbou</h1>
-    </header>
+    <div class="flex-1 h-screen overflow-hidden flex flex-col">
+        <header class="h-20 bg-white border-b flex justify-center items-center px-8 flex-shrink-0">
+            <h1 class="font-bold text-3xl">Youssef Ait Abbou</h1>
+        </header>
 
-    <main class="p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 overflow-y-auto">
-        <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col justify-center items-center text-center">
-            <p class="text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wider text-sm mb-2">Total de jours</p>
-            <p id="Tjours" class="text-5xl font-extrabold text-blue-600 dark:text-blue-400">0</p>
-        </div>
+        <main class="p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 overflow-y-auto">
+            <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col justify-center items-center text-center">
+                <p class="text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wider text-sm mb-2">Total de jours</p>
+                <p id="Tjours" class="text-5xl font-extrabold text-blue-600 dark:text-blue-400">0</p>
+            </div>
 
-        <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col justify-center items-center text-center">
-            <p class="text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wider text-sm mb-2">Nombre d'absences</p>
-            <p id="Nabsence" class="text-5xl font-extrabold text-red-500">0</p>
-        </div>
+            <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col justify-center items-center text-center">
+                <p class="text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wider text-sm mb-2">Nombre d'absences</p>
+                <p id="Nabsence" class="text-5xl font-extrabold text-red-500">0</p>
+            </div>
 
-        <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col justify-center items-center text-center">
-            <p class="text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wider text-sm mb-2">Nombre de retards</p>
-            <p id="Nretard" class="text-5xl font-extrabold text-orange-500">0</p>
-        </div>
+            <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col justify-center items-center text-center">
+                <p class="text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wider text-sm mb-2">Nombre de retards</p>
+                <p id="Nretard" class="text-5xl font-extrabold text-orange-500">0</p>
+            </div>
 
-        <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col justify-center items-center text-center">
-            <p class="text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wider text-sm mb-2">Taux de présence</p>
-            <p id="Tpresence" class="text-5xl font-extrabold text-green-500">0%</p>
-        </div>
-    </main>
-</div>
-   <script src="dashboard.js"></script>
+            <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col justify-center items-center text-center">
+                <p class="text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wider text-sm mb-2">Taux de présence</p>
+                <p id="Tpresence" class="text-5xl font-extrabold text-green-500">0%</p>
+            </div>
+        </main>
+    </div>
+    <script src="dashboard.js"></script>
 </body>
 </html>
